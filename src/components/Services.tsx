@@ -32,7 +32,7 @@ export default function Services() {
                 transition={{ duration: 0.8, delay: i * 0.1, ease: "easeInOut" }}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="cursor-pointer border-b border-aer-cream/10 pb-4 md:pb-6 relative flex flex-col items-start"
+                className="cursor-pointer border-b border-aer-cream/10 pb-4 md:pb-8 relative flex flex-col items-start"
               >
                 {/* Text-as-interface: inverts on hover smoothly */}
                 <motion.h3 

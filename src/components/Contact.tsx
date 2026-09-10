@@ -35,7 +35,7 @@ export default function Contact() {
     <section id="contact" ref={containerRef} className="pt-12 pb-24 md:pt-16 md:pb-32 px-6 md:px-12 bg-aer-charcoal flex flex-col items-center justify-center relative overflow-hidden">
       <motion.div style={{ y, opacity }} className="w-full max-w-4xl mx-auto flex flex-col items-center text-center z-10">
         <p className="text-aer-blue text-[10px] tracking-[0.3em] mb-6">INITIATE</p>
-        <h2 className="font-editorial text-3xl md:text-5xl uppercase leading-[1] mb-12">
+        <h2 className="font-editorial text-2xl md:text-4xl uppercase leading-[1] mb-12">
           Start A <span className="italic text-aer-cream/70">Project</span>
         </h2>
 
@@ -48,7 +48,7 @@ export default function Contact() {
               onMouseLeave={() => setHoveredIndex(null)}
               className={`group relative w-full py-4 px-6 border rounded-sm flex justify-between items-center overflow-hidden cursor-pointer text-left transition-all duration-500 ${selectedIndex === i ? 'border-aer-blue bg-aer-blue/5' : 'border-aer-cream/10 hover:border-aer-blue/30'}`}
             >
-              <span className={`relative z-10 font-editorial text-lg md:text-2xl uppercase transition-all duration-500 ${selectedIndex === i ? 'text-aer-blue italic' : 'group-hover:text-aer-blue group-hover:italic'}`}>
+              <span className={`relative z-10 font-editorial text-base md:text-xl uppercase transition-all duration-500 ${selectedIndex === i ? 'text-aer-blue italic' : 'group-hover:text-aer-blue group-hover:italic'}`}>
                 {item}
               </span>
               <span className={`relative z-10 text-[9px] tracking-[0.2em] transition-all duration-500 ${selectedIndex === i ? 'text-aer-blue' : 'text-aer-cream/20 group-hover:text-aer-blue'}`}>

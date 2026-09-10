@@ -15,7 +15,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="sticky top-0 left-0 w-full z-50 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-500 backdrop-blur-lg bg-aer-charcoal/60 border-b border-aer-cream/10 text-aer-cream"
+        className="fixed top-0 left-0 w-full z-50 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-500 backdrop-blur-md bg-aer-charcoal/80 border-b border-aer-cream/10 text-aer-cream"
       >
         <a href="#" className="text-xs tracking-[0.2em] font-medium z-50" onClick={() => setMenuOpen(false)}>
           AER × VÆLOR
