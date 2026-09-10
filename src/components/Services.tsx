@@ -29,23 +29,28 @@ export default function Services() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.8, delay: i * 0.1, ease: "easeInOut" }}
+                transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="cursor-pointer border-b border-aer-cream/10 pb-4 md:pb-8 relative flex flex-col items-start"
+                className="cursor-pointer border-b border-aer-cream/10 pb-4 md:pb-6 relative flex flex-col items-start overflow-hidden"
               >
-                {/* Text-as-interface: inverts on hover smoothly */}
+                {/* Smooth background highlight */}
+                <motion.div
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute inset-0 bg-aer-cream origin-bottom -z-10"
+                />
+
+                {/* Text-as-interface */}
                 <motion.h3 
                   animate={{ 
                     color: isHovered ? 'var(--color-aer-charcoal)' : 'rgba(250, 248, 245, 0.6)',
-                    backgroundColor: isHovered ? 'var(--color-aer-cream)' : 'transparent',
-                    paddingLeft: isHovered ? '16px' : '0px',
-                    paddingRight: isHovered ? '16px' : '0px',
-                    letterSpacing: isHovered ? '0.1em' : 'normal',
+                    x: isHovered ? 24 : 0,
                     fontStyle: isHovered ? 'italic' : 'normal'
                   }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="font-editorial text-xl md:text-3xl lg:text-4xl uppercase inline-block py-2"
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-editorial text-2xl md:text-4xl lg:text-5xl uppercase inline-block py-2 z-10"
                 >
                   {service.name}
                 </motion.h3>
@@ -54,13 +59,13 @@ export default function Services() {
                 <AnimatePresence>
                   {isHovered && (
                     <motion.div
-                      initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                      animate={{ height: "auto", opacity: 1, marginTop: 16 }}
-                      exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                      className="overflow-hidden max-w-2xl pl-2"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden max-w-2xl z-10"
                     >
-                      <p className="text-[10px] tracking-[0.2em] text-aer-cream/50 uppercase">
+                      <p className="text-[10px] tracking-[0.2em] text-aer-charcoal/70 uppercase pt-2 pb-4 pl-6 font-medium">
                         {service.desc}
                       </p>
                     </motion.div>
@@ -71,8 +76,8 @@ export default function Services() {
                 <motion.div 
                   initial={{ x: "-100%" }}
                   animate={{ x: isHovered ? "0%" : "-100%" }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="absolute bottom-0 left-0 w-full h-[1px] bg-aer-blue" 
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute bottom-0 left-0 w-full h-[2px] bg-aer-blue z-20" 
                 />
               </motion.div>
             );
