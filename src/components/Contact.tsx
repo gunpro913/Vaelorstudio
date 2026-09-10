@@ -74,7 +74,7 @@ export default function Contact() {
               PROCEED WITH: {selectedIndex !== null ? inquiries[selectedIndex] : ''}
             </p>
             <a 
-              href={`mailto:hello@aervaelor.com?subject=Project Inquiry: ${selectedIndex !== null ? inquiries[selectedIndex] : ''}`}
+              href={`mailto:yunusfawzan9@gmail.com?subject=Project Inquiry: ${selectedIndex !== null ? inquiries[selectedIndex] : ''}`}
               className="px-10 py-4 bg-aer-cream text-aer-charcoal font-bold tracking-[0.2em] text-[10px] hover:bg-aer-blue hover:text-aer-charcoal transition-colors duration-500 uppercase rounded-sm"
             >
               CONTINUE TO INQUIRY →

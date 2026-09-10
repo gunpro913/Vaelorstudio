@@ -21,7 +21,7 @@ export default function Footer() {
           MAKE SOMETHING WORTH <span className="italic text-aer-blue">EXPERIENCING</span>
         </h2>
         
-        <a href="#contact" className="text-xs md:text-sm tracking-[0.3em] hover:text-aer-blue transition-colors duration-300 pb-2 border-b border-current opacity-100">
+        <a href="mailto:yunusfawzan9@gmail.com" className="text-xs md:text-sm tracking-[0.3em] hover:text-aer-blue transition-colors duration-300 pb-2 border-b border-current opacity-100">
           START A PROJECT →
         </a>
       </motion.div>
