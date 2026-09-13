@@ -1,87 +1,128 @@
-import { useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+
+const inquiries = [
+  'DIGITAL PLATFORM',
+  'E-COMMERCE',
+  'BRAND IDENTITY',
+  'CREATIVE DEVELOPMENT'
+];
 
 export default function Contact() {
-  const containerRef = useRef(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end end"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["10%", "0%"]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  const inquiries = [
-    "DIGITAL PLATFORM",
-    "E-COMMERCE",
-    "BRAND IDENTITY",
-    "CREATIVE DEVELOPMENT"
-  ];
-
-  const handleSelect = (i: number) => {
-    setSelectedIndex(i);
-    setTimeout(() => {
-      if (ctaRef.current) {
-        ctaRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 150);
-  };
+  const selectedType = selectedIndex !== null ? inquiries[selectedIndex] : null;
+  const subject = selectedType ? `Project Inquiry: ${selectedType}` : 'Project Inquiry';
 
   return (
-    <section id="contact" ref={containerRef} className="pt-12 pb-24 md:pt-16 md:pb-32 px-6 md:px-12 bg-aer-charcoal flex flex-col items-center justify-center relative overflow-hidden">
-      <motion.div style={{ y, opacity }} className="w-full max-w-4xl mx-auto flex flex-col items-center text-center z-10">
-        <p className="text-aer-blue text-[10px] tracking-[0.3em] mb-6">INITIATE</p>
-        <h2 className="font-editorial text-2xl md:text-4xl uppercase leading-[1] mb-12">
-          Start A <span className="italic text-aer-cream/70">Project</span>
-        </h2>
+    <section
+      id="contact"
+      className="relative overflow-hidden bg-aer-charcoal px-6 py-28 md:px-12 md:py-40"
+    >
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-14 md:grid-cols-[0.9fr_1.1fr] md:gap-20">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-15% 0px' }}
+            transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+          >
+            <p className="mb-6 text-[10px] tracking-[0.3em] text-aer-blue">START A PROJECT</p>
+            <h2 className="max-w-xl font-editorial text-6xl uppercase leading-[0.86] tracking-[-0.03em] md:text-8xl">
+              Let&apos;s make
+              <br />
+              <span className="italic text-aer-cream/65">something</span>
+              <br />
+              matter.
+            </h2>
+            <p className="mt-8 max-w-sm text-[11px] leading-6 tracking-[0.07em] text-aer-cream/40">
+              Tell us what you are building. We&apos;ll figure out the right direction from there.
+            </p>
+          </motion.div>
 
-        <div className="w-full flex flex-col gap-2">
-          {inquiries.map((item, i) => (
-            <motion.button
-              key={i}
-              onClick={() => handleSelect(i)}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className={`group relative w-full py-4 px-6 border rounded-sm flex justify-between items-center overflow-hidden cursor-pointer text-left transition-all duration-500 ${selectedIndex === i ? 'border-aer-blue bg-aer-blue/5' : 'border-aer-cream/10 hover:border-aer-blue/30'}`}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-15% 0px' }}
+            transition={{ duration: 0.7, delay: 0.08, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="self-end"
+          >
+            <div className="mb-5 flex items-center justify-between border-b border-aer-cream/10 pb-4">
+              <span className="text-[9px] tracking-[0.22em] text-aer-cream/35">WHAT ARE WE MAKING?</span>
+              <span className="text-[9px] tracking-[0.18em] text-aer-blue/60">
+                {selectedIndex !== null ? `0${selectedIndex + 1} / 04` : 'SELECT ONE'}
+              </span>
+            </div>
+
+            <div className="border-t border-aer-cream/10">
+              {inquiries.map((item, index) => {
+                const selected = selectedIndex === index;
+
+                return (
+                  <motion.button
+                    key={item}
+                    type="button"
+                    onClick={() => setSelectedIndex(index)}
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.25 }}
+                    className="group relative flex w-full items-center justify-between border-b border-aer-cream/10 py-5 text-left md:py-6"
+                  >
+                    <span
+                      className={`font-editorial text-xl uppercase leading-none tracking-[-0.01em] transition-colors duration-300 md:text-2xl ${
+                        selected ? 'italic text-aer-blue' : 'text-aer-cream/65 group-hover:text-aer-cream'
+                      }`}
+                    >
+                      {item}
+                    </span>
+                    <span
+                      className={`ml-6 text-[8px] tracking-[0.18em] transition-colors duration-300 ${
+                        selected ? 'text-aer-blue' : 'text-aer-cream/20 group-hover:text-aer-blue/70'
+                      }`}
+                    >
+                      {selected ? 'SELECTED' : `0${index + 1}`}
+                    </span>
+                    {selected && (
+                      <motion.span
+                        layoutId="contact-line"
+                        className="absolute bottom-[-1px] left-0 h-px w-full bg-aer-blue"
+                      />
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            <motion.div
+              initial={false}
+              animate={{
+                opacity: selectedIndex !== null ? 1 : 0,
+                y: selectedIndex !== null ? 0 : 8
+              }}
+              transition={{ duration: 0.35 }}
+              className="mt-8 flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between"
             >
-              <span className={`relative z-10 font-editorial text-base md:text-xl uppercase transition-all duration-500 ${selectedIndex === i ? 'text-aer-blue italic' : 'group-hover:text-aer-blue group-hover:italic'}`}>
-                {item}
-              </span>
-              <span className={`relative z-10 text-[9px] tracking-[0.2em] transition-all duration-500 ${selectedIndex === i ? 'text-aer-blue' : 'text-aer-cream/20 group-hover:text-aer-blue'}`}>
-                {selectedIndex === i ? 'SELECTED' : 'SELECT ↗'}
-              </span>
-            </motion.button>
-          ))}
+              <div>
+                <p className="text-[8px] tracking-[0.2em] text-aer-cream/25">READY WHEN YOU ARE</p>
+                <p className="mt-2 text-[10px] tracking-[0.06em] text-aer-cream/45">
+                  {selectedType ? `Starting with ${selectedType.toLowerCase()}.` : ''}
+                </p>
+              </div>
+
+              <a
+                href={`mailto:yunusfawzan9@gmail.com?subject=${encodeURIComponent(subject)}`}
+                className="inline-flex items-center border border-aer-cream/20 px-7 py-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-aer-cream transition-all duration-300 hover:border-aer-blue hover:bg-aer-blue hover:text-aer-charcoal"
+              >
+                Start the conversation ↗
+              </a>
+            </motion.div>
+          </motion.div>
         </div>
 
-        <motion.div 
-          ref={ctaRef}
-          initial={{ opacity: 0, height: 0, marginTop: 0 }}
-          animate={{ 
-            opacity: selectedIndex !== null ? 1 : 0, 
-            height: selectedIndex !== null ? 'auto' : 0,
-            marginTop: selectedIndex !== null ? 32 : 0
-          }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="overflow-hidden flex flex-col items-center w-full"
-        >
-          <div className="w-full p-8 border border-aer-blue/20 bg-aer-blue/5 flex flex-col items-center gap-6 rounded-sm mt-4">
-            <p className="text-[10px] tracking-[0.2em] text-aer-cream/50 uppercase">
-              PROCEED WITH: {selectedIndex !== null ? inquiries[selectedIndex] : ''}
-            </p>
-            <a 
-              href={`mailto:yunusfawzan9@gmail.com?subject=Project Inquiry: ${selectedIndex !== null ? inquiries[selectedIndex] : ''}`}
-              className="px-10 py-4 bg-aer-cream text-aer-charcoal font-bold tracking-[0.2em] text-[10px] hover:bg-aer-blue hover:text-aer-charcoal transition-colors duration-500 uppercase rounded-sm"
-            >
-              CONTINUE TO INQUIRY →
-            </a>
-          </div>
-        </motion.div>
-      </motion.div>
+        <div className="mt-24 flex items-end justify-between border-t border-aer-cream/10 pt-5 text-[8px] uppercase tracking-[0.2em] text-aer-cream/20 md:mt-32">
+          <span>AER × VÆLOR</span>
+          <span>BUILD SOMETHING WORTH VISITING.</span>
+        </div>
+      </div>
     </section>
   );
 }
