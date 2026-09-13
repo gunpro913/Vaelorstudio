@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 const steps = [
   {
@@ -35,26 +36,39 @@ function Step({ step, index }: { step: (typeof steps)[number]; index: number }) 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-12% 0px' }}
       transition={{ duration: 0.7, delay: index * 0.04, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className="group relative grid grid-cols-[48px_1fr] gap-5 border-t border-aer-cream/10 py-8 md:grid-cols-[72px_1fr_1fr] md:gap-8 md:py-10"
+      className="group relative grid grid-cols-[48px_1fr] gap-5 border-t border-aer-cream/10 py-10 md:grid-cols-[1fr_56px_1fr] md:gap-8 md:py-14"
     >
-      <div className="flex items-start pt-1">
-        <span className="font-sans text-[10px] tracking-[0.2em] text-aer-blue/70">{step.id}</span>
+      <div className="hidden md:block" />
+
+      <div className="relative z-10 flex items-start justify-center pt-1 md:justify-center">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full border border-aer-cream/15 bg-aer-black font-sans text-[8px] tracking-[0.12em] text-aer-cream/45 transition-all duration-500 group-hover:border-aer-blue/70 group-hover:text-aer-blue md:h-8 md:w-8">
+          {step.id}
+        </span>
       </div>
 
-      <h3 className="font-editorial text-3xl uppercase leading-none tracking-[-0.02em] transition-transform duration-500 group-hover:translate-x-1 md:text-5xl">
-        {step.title}
-      </h3>
-
-      <p className="col-start-2 max-w-md text-[11px] leading-6 tracking-[0.08em] text-aer-cream/45 transition-colors duration-500 group-hover:text-aer-cream/70 md:col-start-3 md:pt-1">
-        {step.desc}
-      </p>
+      <div className="col-start-2 md:col-start-3 md:pt-0">
+        <h3 className="font-editorial text-3xl uppercase leading-none tracking-[-0.02em] transition-transform duration-500 group-hover:translate-x-1 md:text-5xl">
+          {step.title}
+        </h3>
+        <p className="mt-4 max-w-md text-[11px] leading-6 tracking-[0.08em] text-aer-cream/45 transition-colors duration-500 group-hover:text-aer-cream/70 md:mt-3">
+          {step.desc}
+        </p>
+      </div>
     </motion.article>
   );
 }
 
 export default function Process() {
+  const containerRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start center', 'end center']
+  });
+
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
   return (
-    <section id="process" className="relative overflow-hidden bg-aer-black py-28 md:py-40">
+    <section ref={containerRef} id="process" className="relative overflow-hidden bg-aer-black py-28 md:py-40">
       <div className="mx-auto max-w-6xl px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -75,10 +89,18 @@ export default function Process() {
           </p>
         </motion.div>
 
-        <div className="border-b border-aer-cream/10">
-          {steps.map((step, index) => (
-            <Step key={step.id} step={step} index={index} />
-          ))}
+        <div className="relative">
+          <div className="pointer-events-none absolute bottom-0 left-[47px] top-0 w-px bg-aer-cream/10 md:left-1/2 md:-translate-x-1/2" />
+          <motion.div
+            style={{ height: lineHeight }}
+            className="pointer-events-none absolute left-[47px] top-0 w-[2px] origin-top bg-aer-blue md:left-1/2 md:-translate-x-1/2"
+          />
+
+          <div className="border-b border-aer-cream/10">
+            {steps.map((step, index) => (
+              <Step key={step.id} step={step} index={index} />
+            ))}
+          </div>
         </div>
 
         <motion.div
