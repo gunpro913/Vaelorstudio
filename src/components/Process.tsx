@@ -29,7 +29,20 @@ const steps = [
   }
 ];
 
-function Step({ step, index }: { step: (typeof steps)[number]; index: number }) {
+function Step({
+  step,
+  index,
+  progress
+}: {
+  step: (typeof steps)[number];
+  index: number;
+  progress: ReturnType<typeof useScroll>['scrollYProgress'];
+}) {
+  const start = index / steps.length;
+  const active = useTransform(progress, [Math.max(0, start - 0.08), start, Math.min(1, start + 0.08)], [0.25, 1, 0.72]);
+  const nodeScale = useTransform(progress, [Math.max(0, start - 0.06), start, Math.min(1, start + 0.06)], [1, 1.22, 1.08]);
+  const glow = useTransform(progress, [Math.max(0, start - 0.06), start, Math.min(1, start + 0.06)], [0, 1, 0.35]);
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -40,20 +53,30 @@ function Step({ step, index }: { step: (typeof steps)[number]; index: number }) 
     >
       <div className="hidden md:block" />
 
-      <div className="relative z-10 flex items-start justify-center pt-1 md:justify-center">
-        <span className="flex h-7 w-7 items-center justify-center rounded-full border border-aer-cream/15 bg-aer-black font-sans text-[8px] tracking-[0.12em] text-aer-cream/45 transition-all duration-500 group-hover:border-aer-blue/70 group-hover:text-aer-blue md:h-8 md:w-8">
+      <div className="relative z-10 flex items-start justify-center pt-1">
+        <motion.span
+          style={{ scale: nodeScale, opacity: active }}
+          className="flex h-7 w-7 items-center justify-center rounded-full border border-aer-blue/70 bg-aer-black font-sans text-[8px] tracking-[0.12em] text-aer-blue md:h-8 md:w-8"
+        >
           {step.id}
-        </span>
+        </motion.span>
+        <motion.span
+          style={{ opacity: glow, scale: nodeScale }}
+          className="pointer-events-none absolute inset-0 rounded-full bg-aer-blue/20 blur-md"
+        />
       </div>
 
-      <div className="col-start-2 md:col-start-3 md:pt-0">
+      <motion.div
+        style={{ opacity: active }}
+        className="col-start-2 md:col-start-3 md:pt-0"
+      >
         <h3 className="font-editorial text-3xl uppercase leading-none tracking-[-0.02em] transition-transform duration-500 group-hover:translate-x-1 md:text-5xl">
           {step.title}
         </h3>
         <p className="mt-4 max-w-md text-[11px] leading-6 tracking-[0.08em] text-aer-cream/45 transition-colors duration-500 group-hover:text-aer-cream/70 md:mt-3">
           {step.desc}
         </p>
-      </div>
+      </motion.div>
     </motion.article>
   );
 }
@@ -66,6 +89,9 @@ export default function Process() {
   });
 
   const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+  const destinationOpacity = useTransform(scrollYProgress, [0.86, 0.96, 1], [0.25, 0.8, 1]);
+  const destinationScale = useTransform(scrollYProgress, [0.9, 1], [0.96, 1]);
+  const destinationGlow = useTransform(scrollYProgress, [0.92, 1], [0, 1]);
 
   return (
     <section ref={containerRef} id="process" className="relative overflow-hidden bg-aer-black py-28 md:py-40">
@@ -98,21 +124,29 @@ export default function Process() {
 
           <div className="border-b border-aer-cream/10">
             {steps.map((step, index) => (
-              <Step key={step.id} step={step} index={index} />
+              <Step key={step.id} step={step} index={index} progress={scrollYProgress} />
             ))}
           </div>
-        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.15 }}
-          className="flex items-center justify-between pt-6"
-        >
-          <span className="text-[9px] tracking-[0.2em] text-aer-cream/25">05 / 05</span>
-          <span className="text-[9px] uppercase tracking-[0.2em] text-aer-cream/25">Ready to ship</span>
-        </motion.div>
+          <motion.div
+            style={{ opacity: destinationOpacity, scale: destinationScale }}
+            className="relative z-10 flex flex-col items-center py-16 text-center md:py-20"
+          >
+            <motion.span
+              style={{ opacity: destinationGlow }}
+              className="pointer-events-none absolute top-1/2 h-16 w-16 -translate-y-1/2 rounded-full bg-aer-blue/20 blur-2xl"
+            />
+            <span className="relative mb-5 flex h-9 w-9 items-center justify-center rounded-full border border-aer-blue bg-aer-black">
+              <span className="h-1.5 w-1.5 rounded-full bg-aer-blue" />
+            </span>
+            <h3 className="relative font-editorial text-4xl uppercase leading-none tracking-[-0.02em] md:text-6xl">
+              Your Website.
+            </h3>
+            <p className="relative mt-4 text-[10px] uppercase tracking-[0.2em] text-aer-cream/35">
+              Designed with intention. Built to perform.
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
