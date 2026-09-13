@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-aer-black: #050505;
-  --color-aer-charcoal: #0a0a0a;
+  --color-aer-black: #0A0A0A;
+  --color-aer-charcoal: #101010;
   --color-aer-cream: #FAF8F5;
   --color-aer-blue: #40E0D0;
   
