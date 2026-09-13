@@ -11,11 +11,7 @@ const steps = [
 
 function Step({ step, index }: { step: (typeof steps)[number]; index: number }) {
   const stepRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: stepRef,
-    offset: ['start 82%', 'start 18%']
-  });
-
+  const { scrollYProgress } = useScroll({ target: stepRef, offset: ['start 82%', 'start 18%'] });
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.42, 1, 0.62]);
   const nodeOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.72]);
   const nodeScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.04, 1]);
@@ -31,27 +27,15 @@ function Step({ step, index }: { step: (typeof steps)[number]; index: number }) 
       className="relative grid grid-cols-[32px_1fr] gap-4 py-7 md:grid-cols-[1fr_48px_1fr] md:gap-8 md:py-10"
     >
       <div className="hidden md:block" />
-
       <div className="relative z-10 flex items-start justify-center pt-0.5">
-        <motion.span
-          style={{ opacity: nodeOpacity, scale: nodeScale }}
-          className="relative flex h-6 w-6 items-center justify-center rounded-full border border-aer-cream/20 bg-aer-black font-sans text-[7px] tracking-[0.1em] text-aer-cream/55 md:h-7 md:w-7"
-        >
+        <motion.span style={{ opacity: nodeOpacity, scale: nodeScale }} className="relative flex h-6 w-6 items-center justify-center rounded-full border border-aer-cream/20 bg-aer-black font-sans text-[7px] tracking-[0.1em] text-aer-cream/55 md:h-7 md:w-7">
           {step.id}
-          <motion.span
-            style={{ opacity: glowOpacity }}
-            className="pointer-events-none absolute -inset-1 rounded-full bg-aer-blue/20 blur-sm"
-          />
+          <motion.span style={{ opacity: glowOpacity }} className="pointer-events-none absolute -inset-1 rounded-full bg-aer-blue/20 blur-sm" />
         </motion.span>
       </div>
-
       <motion.div style={{ opacity: contentOpacity }} className="col-start-2 md:col-start-3">
-        <h3 className="font-editorial text-3xl uppercase leading-none tracking-[-0.02em] md:text-5xl">
-          {step.title}
-        </h3>
-        <p className="mt-3 max-w-md text-[10px] leading-5 tracking-[0.05em] text-aer-cream/45 md:text-[11px] md:leading-6">
-          {step.desc}
-        </p>
+        <h3 className="font-editorial text-3xl uppercase leading-none tracking-[-0.02em] md:text-5xl">{step.title}</h3>
+        <p className="mt-3 max-w-md text-[10px] leading-5 tracking-[0.05em] text-aer-cream/45 md:text-[11px] md:leading-6">{step.desc}</p>
       </motion.div>
     </motion.article>
   );
@@ -59,11 +43,7 @@ function Step({ step, index }: { step: (typeof steps)[number]; index: number }) 
 
 export default function Process() {
   const containerRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start center', 'end center']
-  });
-
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start center', 'end center'] });
   const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
   const destinationOpacity = useTransform(scrollYProgress, [0.84, 0.95, 1], [0.42, 0.82, 1]);
 
@@ -75,13 +55,11 @@ export default function Process() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="mb-12 grid gap-5 md:mb-18 md:grid-cols-[1fr_1fr] md:items-end"
+          className="mb-12 grid gap-5 md:mb-20 md:grid-cols-[1fr_1fr] md:items-end"
         >
           <div>
             <p className="mb-5 text-[10px] tracking-[0.25em] text-aer-blue">PROCESS</p>
-            <h2 className="font-editorial text-5xl uppercase leading-[0.9] tracking-[-0.025em] md:text-7xl">
-              From idea<br />to interface.
-            </h2>
+            <h2 className="font-editorial text-5xl uppercase leading-[0.9] tracking-[-0.025em] md:text-7xl">From idea<br />to interface.</h2>
           </div>
           <p className="max-w-sm text-[11px] leading-6 tracking-[0.08em] text-aer-cream/40 md:justify-self-end">
             A focused process built around clarity, craft, and meaningful decisions — not unnecessary steps.
@@ -90,32 +68,17 @@ export default function Process() {
 
         <div className="relative">
           <div className="pointer-events-none absolute bottom-0 left-[31px] top-0 w-px bg-aer-cream/10 md:left-1/2 md:-translate-x-1/2" />
-          <motion.div
-            style={{ height: lineHeight }}
-            className="pointer-events-none absolute left-[31px] top-0 w-px origin-top bg-aer-blue/55 md:left-1/2 md:-translate-x-1/2"
-          />
+          <motion.div style={{ height: lineHeight }} className="pointer-events-none absolute left-[31px] top-0 w-px origin-top bg-aer-blue/55 md:left-1/2 md:-translate-x-1/2" />
+          {steps.map((step, index) => <Step key={step.id} step={step} index={index} />)}
 
-          {steps.map((step, index) => (
-            <Step key={step.id} step={step} index={index} />
-          ))}
-
-          <motion.div
-            style={{ opacity: destinationOpacity }}
-            className="relative z-10 grid grid-cols-[32px_1fr] gap-4 border-t border-aer-cream/10 py-9 md:grid-cols-[1fr_48px_1fr] md:gap-8 md:py-12"
-          >
+          <motion.div style={{ opacity: destinationOpacity }} className="relative z-10 grid grid-cols-[32px_1fr] gap-4 border-t border-aer-cream/10 py-9 md:grid-cols-[1fr_48px_1fr] md:gap-8 md:py-12">
             <div className="hidden md:block" />
             <div className="flex items-start justify-center pt-0.5">
-              <span className="relative flex h-6 w-6 items-center justify-center rounded-full border border-aer-cream/25 bg-aer-black md:h-7 md:w-7">
-                <span className="h-1.5 w-1.5 rounded-full bg-aer-blue" />
-              </span>
+              <span className="relative flex h-6 w-6 items-center justify-center rounded-full border border-aer-cream/25 bg-aer-black md:h-7 md:w-7"><span className="h-1.5 w-1.5 rounded-full bg-aer-blue" /></span>
             </div>
             <div className="col-start-2 md:col-start-3">
-              <h3 className="font-editorial text-4xl uppercase leading-none tracking-[-0.02em] md:text-6xl">
-                Your Website.
-              </h3>
-              <p className="mt-3 text-[9px] uppercase tracking-[0.2em] text-aer-cream/30">
-                Built from the ground up.
-              </p>
+              <h3 className="font-editorial text-4xl uppercase leading-none tracking-[-0.02em] md:text-6xl">Your Website.</h3>
+              <p className="mt-3 text-[9px] uppercase tracking-[0.2em] text-aer-cream/30">Built from the ground up.</p>
             </div>
           </motion.div>
         </div>
