@@ -88,18 +88,9 @@ export default function Contact() {
                         {projectTypes.map((item, index) => {
                           const selected = projectType === item;
                           return (
-                            <button
-                              key={item}
-                              type="button"
-                              onClick={() => setProjectType(item)}
-                              className="group relative flex w-full items-center justify-between border-b border-aer-cream/10 py-5 text-left md:py-6"
-                            >
-                              <span className={`font-editorial text-xl uppercase leading-none tracking-[-0.01em] transition-all duration-300 md:text-2xl ${selected ? 'italic text-aer-blue' : 'text-aer-cream/60 group-hover:text-aer-cream'}`}>
-                                {item}
-                              </span>
-                              <span className={`text-[8px] tracking-[0.18em] transition-colors ${selected ? 'text-aer-blue' : 'text-aer-cream/20 group-hover:text-aer-blue/70'}`}>
-                                0{index + 1}
-                              </span>
+                            <button key={item} type="button" onClick={() => setProjectType(item)} className="group relative flex w-full items-center justify-between border-b border-aer-cream/10 py-5 text-left md:py-6">
+                              <span className={`font-editorial text-xl uppercase leading-none tracking-[-0.01em] transition-all duration-300 md:text-2xl ${selected ? 'italic text-aer-blue' : 'text-aer-cream/60 group-hover:text-aer-cream'}`}>{item}</span>
+                              <span className={`text-[8px] tracking-[0.18em] transition-colors ${selected ? 'text-aer-blue' : 'text-aer-cream/20 group-hover:text-aer-blue/70'}`}>0{index + 1}</span>
                               {selected && <motion.span layoutId="project-selection" className="absolute bottom-[-1px] left-0 h-px w-full bg-aer-blue" />}
                             </button>
                           );
@@ -115,12 +106,7 @@ export default function Contact() {
                         {timelines.map((item, index) => {
                           const selected = timeline === item;
                           return (
-                            <button
-                              key={item}
-                              type="button"
-                              onClick={() => setTimeline(item)}
-                              className="group relative flex w-full items-center justify-between border-b border-aer-cream/10 py-6 text-left"
-                            >
+                            <button key={item} type="button" onClick={() => setTimeline(item)} className="group relative flex w-full items-center justify-between border-b border-aer-cream/10 py-6 text-left">
                               <span className={`font-editorial text-2xl uppercase transition-all duration-300 ${selected ? 'italic text-aer-blue' : 'text-aer-cream/60 group-hover:text-aer-cream'}`}>{item}</span>
                               <span className={`text-[8px] tracking-[0.18em] ${selected ? 'text-aer-blue' : 'text-aer-cream/20'}`}>0{index + 1}</span>
                               {selected && <motion.span layoutId="timeline-selection" className="absolute bottom-[-1px] left-0 h-px w-full bg-aer-blue" />}
@@ -134,13 +120,7 @@ export default function Contact() {
                   {step === 3 && (
                     <motion.div key="step-3" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.25 }}>
                       <p className="mb-5 text-[9px] tracking-[0.2em] text-aer-cream/35">03 — TELL US ABOUT IT</p>
-                      <textarea
-                        value={details}
-                        onChange={(event) => setDetails(event.target.value)}
-                        placeholder="What are you building? What should the website achieve? Anything useful to know."
-                        rows={7}
-                        className="w-full resize-none border-b border-aer-cream/15 bg-transparent py-4 text-[12px] leading-6 tracking-[0.04em] text-aer-cream outline-none placeholder:text-aer-cream/20 focus:border-aer-blue"
-                      />
+                      <textarea value={details} onChange={(event) => setDetails(event.target.value)} placeholder="What are you building? What should the website achieve? Anything useful to know." rows={7} className="w-full resize-none border-b border-aer-cream/15 bg-transparent py-4 text-[12px] leading-6 tracking-[0.04em] text-aer-cream outline-none placeholder:text-aer-cream/20 focus:border-aer-blue" />
                     </motion.div>
                   )}
 
@@ -157,18 +137,22 @@ export default function Contact() {
                 </AnimatePresence>
               </div>
 
-              <div className="mt-8 flex items-center justify-between border-t border-aer-cream/10 pt-5">
-                <button type="button" onClick={back} disabled={step === 1} className="text-[9px] uppercase tracking-[0.2em] text-aer-cream/25 transition-colors hover:text-aer-cream disabled:pointer-events-none disabled:opacity-0">
-                  ← Back
-                </button>
+              <div className="mt-8 flex flex-col items-center border-t border-aer-cream/10 pt-7">
+                {step > 1 && (
+                  <button type="button" onClick={back} className="order-2 mt-5 text-[9px] uppercase tracking-[0.22em] text-aer-cream/25 transition-colors hover:text-aer-cream">
+                    ← Back
+                  </button>
+                )}
 
                 {step < 4 ? (
-                  <button type="button" onClick={next} disabled={!canContinue} className="border border-aer-cream/15 px-7 py-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-aer-cream transition-all duration-300 hover:border-aer-blue hover:bg-aer-blue hover:text-aer-charcoal disabled:pointer-events-none disabled:opacity-20">
-                    Continue →
+                  <button type="button" onClick={next} disabled={!canContinue} className="group relative inline-flex min-w-[180px] items-center justify-center rounded-full border border-aer-cream/20 px-8 py-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-aer-cream transition-all duration-300 hover:border-aer-blue hover:bg-aer-blue hover:text-aer-charcoal disabled:pointer-events-none disabled:opacity-20">
+                    <span>Continue</span>
+                    <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </button>
                 ) : (
-                  <button type="submit" className="border border-aer-cream/15 px-7 py-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-aer-cream transition-all duration-300 hover:border-aer-blue hover:bg-aer-blue hover:text-aer-charcoal">
-                    Send inquiry ↗
+                  <button type="submit" className="group relative inline-flex min-w-[180px] items-center justify-center rounded-full border border-aer-cream/20 px-8 py-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-aer-cream transition-all duration-300 hover:border-aer-blue hover:bg-aer-blue hover:text-aer-charcoal">
+                    <span>Send inquiry</span>
+                    <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">↗</span>
                   </button>
                 )}
               </div>
