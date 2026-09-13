@@ -30,7 +30,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-aer-black px-6 py-28 md:px-12 md:py-36">
+    <section id="contact" className="relative overflow-hidden bg-aer-black px-6 py-20 md:px-12 md:py-28">
       <div className="mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -45,7 +45,7 @@ export default function Contact() {
             <br />
             <span className="italic text-aer-cream/55">what comes next.</span>
           </h2>
-          <p className="mx-auto mt-7 max-w-md text-[10px] leading-6 tracking-[0.08em] text-aer-cream/35">
+          <p className="mx-auto mt-6 max-w-md text-[10px] leading-6 tracking-[0.08em] text-aer-cream/35">
             A few questions. A clear direction. Then we build.
           </p>
         </motion.div>
@@ -55,7 +55,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.7, delay: 0.08, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="mx-auto mt-16 max-w-2xl md:mt-20"
+          className="mx-auto mt-12 max-w-2xl md:mt-14"
         >
           <div className="mb-7 flex items-center justify-between border-b border-aer-cream/10 pb-4">
             <div className="flex items-center gap-4">
@@ -141,7 +141,7 @@ export default function Contact() {
           </form>
         </motion.div>
 
-        <div className="mt-24 flex items-end justify-between border-t border-aer-cream/10 pt-5 text-[8px] uppercase tracking-[0.2em] text-aer-cream/20 md:mt-28">
+        <div className="mt-16 flex items-end justify-between border-t border-aer-cream/10 pt-5 text-[8px] uppercase tracking-[0.2em] text-aer-cream/20 md:mt-20">
           <span>AER × VÆLOR</span>
           <span>BUILD SOMETHING WORTH VISITING.</span>
         </div>
