@@ -16,21 +16,19 @@ function Step({ step, index }: { step: (typeof steps)[number]; index: number }) 
     offset: ['start 82%', 'start 18%']
   });
 
-  // The stage is brightest when it passes the visual center of the viewport,
-  // rather than when the whole section happens to be at a particular progress value.
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.38, 1, 0.58]);
-  const nodeOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.48, 1, 0.7]);
-  const nodeScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.06, 1]);
-  const glowOpacity = useTransform(scrollYProgress, [0.28, 0.5, 0.72], [0, 0.32, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.42, 1, 0.62]);
+  const nodeOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.72]);
+  const nodeScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.04, 1]);
+  const glowOpacity = useTransform(scrollYProgress, [0.3, 0.5, 0.7], [0, 0.2, 0]);
 
   return (
     <motion.article
       ref={stepRef}
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-8% 0px' }}
-      transition={{ duration: 0.55, delay: index * 0.025, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className="relative grid grid-cols-[40px_1fr] gap-5 py-9 md:grid-cols-[1fr_48px_1fr] md:gap-8 md:py-11"
+      transition={{ duration: 0.5, delay: index * 0.02, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className="relative grid grid-cols-[32px_1fr] gap-4 py-7 md:grid-cols-[1fr_48px_1fr] md:gap-8 md:py-10"
     >
       <div className="hidden md:block" />
 
@@ -42,7 +40,7 @@ function Step({ step, index }: { step: (typeof steps)[number]; index: number }) 
           {step.id}
           <motion.span
             style={{ opacity: glowOpacity }}
-            className="pointer-events-none absolute -inset-1.5 rounded-full bg-aer-blue/20 blur-sm"
+            className="pointer-events-none absolute -inset-1 rounded-full bg-aer-blue/20 blur-sm"
           />
         </motion.span>
       </div>
@@ -51,7 +49,7 @@ function Step({ step, index }: { step: (typeof steps)[number]; index: number }) 
         <h3 className="font-editorial text-3xl uppercase leading-none tracking-[-0.02em] md:text-5xl">
           {step.title}
         </h3>
-        <p className="mt-3 max-w-md text-[10px] leading-6 tracking-[0.06em] text-aer-cream/45 md:text-[11px]">
+        <p className="mt-3 max-w-md text-[10px] leading-5 tracking-[0.05em] text-aer-cream/45 md:text-[11px] md:leading-6">
           {step.desc}
         </p>
       </motion.div>
@@ -67,17 +65,17 @@ export default function Process() {
   });
 
   const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
-  const destinationOpacity = useTransform(scrollYProgress, [0.84, 0.95, 1], [0.35, 0.8, 1]);
+  const destinationOpacity = useTransform(scrollYProgress, [0.84, 0.95, 1], [0.42, 0.82, 1]);
 
   return (
-    <section ref={containerRef} id="process" className="relative overflow-hidden bg-aer-black py-28 md:py-36">
+    <section ref={containerRef} id="process" className="relative overflow-hidden bg-aer-black py-20 md:py-32">
       <div className="mx-auto max-w-6xl px-6 md:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="mb-14 grid gap-6 md:mb-20 md:grid-cols-[1fr_1fr] md:items-end"
+          transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="mb-12 grid gap-5 md:mb-18 md:grid-cols-[1fr_1fr] md:items-end"
         >
           <div>
             <p className="mb-5 text-[10px] tracking-[0.25em] text-aer-blue">PROCESS</p>
@@ -91,10 +89,10 @@ export default function Process() {
         </motion.div>
 
         <div className="relative">
-          <div className="pointer-events-none absolute bottom-0 left-[39px] top-0 w-px bg-aer-cream/10 md:left-1/2 md:-translate-x-1/2" />
+          <div className="pointer-events-none absolute bottom-0 left-[31px] top-0 w-px bg-aer-cream/10 md:left-1/2 md:-translate-x-1/2" />
           <motion.div
             style={{ height: lineHeight }}
-            className="pointer-events-none absolute left-[39px] top-0 w-px origin-top bg-aer-blue/80 md:left-1/2 md:-translate-x-1/2"
+            className="pointer-events-none absolute left-[31px] top-0 w-px origin-top bg-aer-blue/55 md:left-1/2 md:-translate-x-1/2"
           />
 
           {steps.map((step, index) => (
@@ -103,7 +101,7 @@ export default function Process() {
 
           <motion.div
             style={{ opacity: destinationOpacity }}
-            className="relative z-10 grid grid-cols-[40px_1fr] gap-5 border-t border-aer-cream/10 py-12 md:grid-cols-[1fr_48px_1fr] md:gap-8 md:py-14"
+            className="relative z-10 grid grid-cols-[32px_1fr] gap-4 border-t border-aer-cream/10 py-9 md:grid-cols-[1fr_48px_1fr] md:gap-8 md:py-12"
           >
             <div className="hidden md:block" />
             <div className="flex items-start justify-center pt-0.5">
@@ -115,7 +113,7 @@ export default function Process() {
               <h3 className="font-editorial text-4xl uppercase leading-none tracking-[-0.02em] md:text-6xl">
                 Your Website.
               </h3>
-              <p className="mt-4 text-[9px] uppercase tracking-[0.2em] text-aer-cream/30">
+              <p className="mt-3 text-[9px] uppercase tracking-[0.2em] text-aer-cream/30">
                 Built from the ground up.
               </p>
             </div>
