@@ -15,6 +15,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Preloader from './components/Preloader';
 import Admin from './components/Admin';
+import { supabase } from './lib/supabase';
 
 function PublicSite() {
   const [loading, setLoading] = useState(true);
@@ -24,6 +25,11 @@ function PublicSite() {
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2500);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!supabase) return;
+    void supabase.from('analytics_events').insert({ event_name: 'page_view', path: window.location.pathname });
   }, []);
 
   return <>
