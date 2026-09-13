@@ -11,6 +11,7 @@ export default function Contact() {
   const [details, setDetails] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const canContinue = step === 1 ? !!projectType : step === 2 ? !!timeline : !!details.trim();
   const next = () => canContinue && setStep((current) => Math.min(current + 1, 4));
@@ -18,16 +19,40 @@ export default function Contact() {
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
+    if (!name.trim() || !email.trim() || !email.includes('@')) return;
+
     const subject = `Project Inquiry: ${projectType}`;
     const body = [
       `Project type: ${projectType}`,
       `Timeline: ${timeline}`,
       `Project details: ${details}`,
-      `Name: ${name || 'Not provided'}`,
-      `Email: ${email || 'Not provided'}`
+      `Name: ${name}`,
+      `Email: ${email}`
     ].join('\n\n');
-    window.location.href = `mailto:yunusfawzan9@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    setSubmitted(true);
+    window.setTimeout(() => {
+      window.location.href = `mailto:yunusfawzan9@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }, 350);
   };
+
+  if (submitted) {
+    return (
+      <section id="contact" className="relative overflow-hidden bg-aer-black px-6 py-20 md:px-12 md:py-28">
+        <div className="mx-auto flex min-h-[55vh] max-w-4xl flex-col items-center justify-center text-center">
+          <p className="mb-5 text-[9px] tracking-[0.32em] text-aer-blue">INQUIRY READY</p>
+          <h2 className="font-editorial text-6xl uppercase leading-[0.86] tracking-[-0.035em] md:text-8xl">
+            Let&apos;s build
+            <br />
+            <span className="italic text-aer-cream/55">what comes next.</span>
+          </h2>
+          <p className="mt-7 max-w-md text-[10px] leading-6 tracking-[0.08em] text-aer-cream/35">
+            Your email client should open with your project details ready to send.
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="contact" className="relative overflow-hidden bg-aer-black px-6 py-20 md:px-12 md:py-28">
@@ -62,20 +87,20 @@ export default function Contact() {
               <span className="text-[9px] tracking-[0.22em] text-aer-blue">INITIATE</span>
               <span className="text-[8px] tracking-[0.16em] text-aer-cream/20">PROJECT INQUIRY</span>
             </div>
-            <span className="text-[9px] tracking-[0.18em] text-aer-cream/25">0{step} / 04</span>
+            <span className="text-[9px] tracking-[0.18em] text-aer-cream/25" aria-live="polite">0{step} / 04</span>
           </div>
 
-          <form onSubmit={submit}>
+          <form onSubmit={submit} noValidate>
             <div className="min-h-[300px]">
               <AnimatePresence mode="wait">
                 {step === 1 && (
                   <motion.div key="step-1" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.25 }}>
                     <p className="mb-5 text-[9px] tracking-[0.2em] text-aer-cream/30">01 — WHAT ARE WE MAKING?</p>
-                    <div className="border-t border-aer-cream/10">
+                    <div className="border-t border-aer-cream/10" role="group" aria-label="Project type">
                       {projectTypes.map((item, index) => {
                         const selected = projectType === item;
                         return (
-                          <button key={item} type="button" onClick={() => setProjectType(item)} className="group relative flex w-full items-center justify-between border-b border-aer-cream/10 py-5 text-left md:py-6">
+                          <button key={item} type="button" aria-pressed={selected} onClick={() => setProjectType(item)} className="group relative flex w-full items-center justify-between border-b border-aer-cream/10 py-5 text-left transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:outline-aer-blue md:py-6">
                             <span className={`font-editorial text-xl uppercase leading-none tracking-[-0.01em] transition-all duration-300 md:text-2xl ${selected ? 'italic text-aer-blue' : 'text-aer-cream/60 group-hover:text-aer-cream'}`}>{item}</span>
                             <span className={`text-[8px] tracking-[0.18em] ${selected ? 'text-aer-blue' : 'text-aer-cream/20'}`}>0{index + 1}</span>
                             {selected && <motion.span layoutId="project-selection" className="absolute bottom-[-1px] left-0 h-px w-full bg-aer-blue" />}
@@ -89,11 +114,11 @@ export default function Contact() {
                 {step === 2 && (
                   <motion.div key="step-2" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.25 }}>
                     <p className="mb-5 text-[9px] tracking-[0.2em] text-aer-cream/30">02 — WHEN ARE YOU LOOKING TO MOVE?</p>
-                    <div className="border-t border-aer-cream/10">
+                    <div className="border-t border-aer-cream/10" role="group" aria-label="Project timeline">
                       {timelines.map((item, index) => {
                         const selected = timeline === item;
                         return (
-                          <button key={item} type="button" onClick={() => setTimeline(item)} className="group relative flex w-full items-center justify-between border-b border-aer-cream/10 py-6 text-left">
+                          <button key={item} type="button" aria-pressed={selected} onClick={() => setTimeline(item)} className="group relative flex w-full items-center justify-between border-b border-aer-cream/10 py-6 text-left transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:outline-aer-blue">
                             <span className={`font-editorial text-2xl uppercase transition-all duration-300 ${selected ? 'italic text-aer-blue' : 'text-aer-cream/60 group-hover:text-aer-cream'}`}>{item}</span>
                             <span className={`text-[8px] tracking-[0.18em] ${selected ? 'text-aer-blue' : 'text-aer-cream/20'}`}>0{index + 1}</span>
                             {selected && <motion.span layoutId="timeline-selection" className="absolute bottom-[-1px] left-0 h-px w-full bg-aer-blue" />}
@@ -106,8 +131,8 @@ export default function Contact() {
 
                 {step === 3 && (
                   <motion.div key="step-3" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.25 }}>
-                    <p className="mb-5 text-[9px] tracking-[0.2em] text-aer-cream/30">03 — TELL US ABOUT IT</p>
-                    <textarea value={details} onChange={(event) => setDetails(event.target.value)} placeholder="What are you building? What should the website achieve? Anything useful to know." rows={7} className="w-full resize-none border-b border-aer-cream/15 bg-transparent py-4 text-[12px] leading-6 tracking-[0.04em] text-aer-cream outline-none placeholder:text-aer-cream/20 focus:border-aer-blue" />
+                    <label htmlFor="project-details" className="mb-5 block text-[9px] tracking-[0.2em] text-aer-cream/30">03 — TELL US ABOUT IT</label>
+                    <textarea id="project-details" required value={details} onChange={(event) => setDetails(event.target.value)} placeholder="What are you building? What should the website achieve? Anything useful to know." rows={7} className="w-full resize-none border-b border-aer-cream/15 bg-transparent py-4 text-[12px] leading-6 tracking-[0.04em] text-aer-cream outline-none placeholder:text-aer-cream/20 focus:border-aer-blue" />
                   </motion.div>
                 )}
 
@@ -115,8 +140,10 @@ export default function Contact() {
                   <motion.div key="step-4" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.25 }}>
                     <p className="mb-5 text-[9px] tracking-[0.2em] text-aer-cream/30">04 — WHERE SHOULD WE REACH YOU?</p>
                     <div className="border-t border-aer-cream/10">
-                      <input value={name} onChange={(event) => setName(event.target.value)} placeholder="YOUR NAME" className="w-full border-b border-aer-cream/10 bg-transparent py-5 text-[11px] tracking-[0.14em] text-aer-cream outline-none placeholder:text-aer-cream/20 focus:border-aer-blue" />
-                      <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="YOUR EMAIL" className="w-full border-b border-aer-cream/10 bg-transparent py-5 text-[11px] tracking-[0.14em] text-aer-cream outline-none placeholder:text-aer-cream/20 focus:border-aer-blue" />
+                      <label htmlFor="contact-name" className="sr-only">Your name</label>
+                      <input id="contact-name" required value={name} onChange={(event) => setName(event.target.value)} placeholder="YOUR NAME" autoComplete="name" className="w-full border-b border-aer-cream/10 bg-transparent py-5 text-[11px] tracking-[0.14em] text-aer-cream outline-none placeholder:text-aer-cream/20 focus:border-aer-blue" />
+                      <label htmlFor="contact-email" className="sr-only">Your email</label>
+                      <input id="contact-email" required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="YOUR EMAIL" autoComplete="email" className="w-full border-b border-aer-cream/10 bg-transparent py-5 text-[11px] tracking-[0.14em] text-aer-cream outline-none placeholder:text-aer-cream/20 focus:border-aer-blue" />
                     </div>
                     <p className="mt-5 text-[9px] leading-5 tracking-[0.08em] text-aer-cream/25">We&apos;ll open your email client with everything you entered. Nothing is stored on the site.</p>
                   </motion.div>
@@ -130,12 +157,12 @@ export default function Contact() {
                   <span>Continue</span><span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </button>
               ) : (
-                <button type="submit" className="group inline-flex min-w-[180px] items-center justify-center rounded-full border border-aer-cream/20 px-8 py-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-aer-cream transition-all duration-300 hover:border-aer-blue hover:bg-aer-blue hover:text-aer-charcoal">
+                <button type="submit" disabled={!name.trim() || !email.trim()} className="group inline-flex min-w-[180px] items-center justify-center rounded-full border border-aer-cream/20 px-8 py-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-aer-cream transition-all duration-300 hover:border-aer-blue hover:bg-aer-blue hover:text-aer-charcoal disabled:pointer-events-none disabled:opacity-20">
                   <span>Send inquiry</span><span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">↗</span>
                 </button>
               )}
               {step > 1 && (
-                <button type="button" onClick={back} className="mt-5 text-[9px] uppercase tracking-[0.22em] text-aer-cream/25 transition-colors hover:text-aer-cream">← Back</button>
+                <button type="button" onClick={back} className="mt-5 text-[9px] uppercase tracking-[0.22em] text-aer-cream/25 transition-colors hover:text-aer-cream focus-visible:outline focus-visible:outline-1 focus-visible:outline-aer-blue">← Back</button>
               )}
             </div>
           </form>
