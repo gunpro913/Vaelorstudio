@@ -28,6 +28,14 @@ export default function Hero() {
 
   return (
     <section ref={containerRef} className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-aer-black">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-40">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(250,248,245,0.045),transparent_38%)]" />
+        <div className="absolute inset-x-0 top-[28%] border-t border-aer-cream/[0.055]" />
+        <div className="absolute inset-x-0 bottom-[18%] border-t border-aer-cream/[0.035]" />
+        <div className="absolute left-[9%] top-0 h-full border-l border-aer-cream/[0.04]" />
+        <div className="absolute right-[9%] top-0 h-full border-r border-aer-cream/[0.04]" />
+      </div>
+
       <div className="absolute left-6 top-32 hidden flex-col gap-1 text-[9px] tracking-[0.3em] text-aer-cream/30 md:left-12 md:flex">
         <span>IDX: 001</span>
         <span>SYS: ONLINE</span>
