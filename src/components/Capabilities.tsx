@@ -1,54 +1,65 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const capabilities = [
-  { id: '01', title: 'STRATEGY', desc: 'Brand positioning, digital architecture, and user journey mapping.' },
-  { id: '02', title: 'DESIGN', desc: 'Art direction, UI/UX, and immersive interface design.' },
-  { id: '03', title: 'MOTION', desc: 'Cinematic transitions, micro-interactions, and 3D integration.' },
-  { id: '04', title: 'DEVELOPMENT', desc: 'Creative coding, WebGL, and high-performance frontend architecture.' }
+  {
+    id: '01',
+    title: 'DIRECTION',
+    desc: 'Turning an idea into a clear digital point of view — structure, narrative, and visual language.'
+  },
+  {
+    id: '02',
+    title: 'INTERFACE',
+    desc: 'Designing precise interfaces where typography, hierarchy, and interaction work as one system.'
+  },
+  {
+    id: '03',
+    title: 'MOTION',
+    desc: 'Using movement with intention — transitions, pacing, and spatial cues that support the experience.'
+  },
+  {
+    id: '04',
+    title: 'ENGINEERING',
+    desc: 'Building the front end with clean architecture, responsive behavior, and performance in mind.'
+  }
 ];
 
 export default function Capabilities() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+  const reduceMotion = useReducedMotion();
 
   return (
-    <section ref={containerRef} className="py-32 md:py-48 px-6 md:px-12 bg-aer-black relative overflow-hidden">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 md:gap-24 items-start">
-        
-        <div className="w-full md:w-1/3 relative h-full">
-          <div className="sticky top-32 flex flex-col gap-4">
-            <p className="text-aer-blue text-xs tracking-[0.2em]">CAPABILITIES</p>
-            <p className="text-[9px] tracking-[0.3em] text-aer-cream/30 uppercase">SYS_LOG: CORE_COMPETENCIES</p>
+    <section id="capabilities" className="relative overflow-hidden bg-aer-black px-6 py-24 md:px-12 md:py-40">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-[0.8fr_1.8fr] md:gap-24">
+          <div className="md:sticky md:top-32 md:self-start">
+            <p className="text-xs tracking-[0.24em] text-aer-blue">CAPABILITIES</p>
+            <p className="mt-3 max-w-xs text-[10px] uppercase leading-relaxed tracking-[0.2em] text-aer-cream/35">
+              A focused system for building digital experiences with character.
+            </p>
+          </div>
+
+          <div className="border-t border-aer-cream/10">
+            {capabilities.map((cap, i) => (
+              <motion.div
+                key={cap.id}
+                initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12%' }}
+                transition={{ duration: 0.7, delay: reduceMotion ? 0 : i * 0.06, ease: [0.21, 0.47, 0.32, 0.98] }}
+                className="group grid grid-cols-[44px_1fr] gap-4 border-b border-aer-cream/10 py-7 md:grid-cols-[56px_0.8fr_1.2fr] md:items-start md:gap-8 md:py-9"
+              >
+                <span className="pt-1 text-[10px] tracking-[0.2em] text-aer-blue">{cap.id}</span>
+
+                <h3 className="font-editorial text-2xl uppercase leading-none text-aer-cream transition-[letter-spacing] duration-500 group-hover:tracking-[0.06em] md:text-4xl">
+                  {cap.title}
+                </h3>
+
+                <p className="col-start-2 max-w-md text-[10px] uppercase leading-[1.8] tracking-[0.16em] text-aer-cream/45 transition-colors duration-500 group-hover:text-aer-cream/70 md:col-start-auto md:pt-1">
+                  {cap.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
-
-        <motion.div style={{ y }} className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {capabilities.map((cap, i) => (
-            <motion.div 
-              key={cap.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className="flex flex-col gap-4 group"
-            >
-              <div className="flex items-center gap-4 border-b border-aer-cream/10 pb-4">
-                <span className="text-aer-blue text-[10px] tracking-[0.2em]">{cap.id}</span>
-                <h4 className="font-editorial text-2xl md:text-3xl uppercase group-hover:italic group-hover:tracking-widest transition-all duration-500">{cap.title}</h4>
-              </div>
-              <p className="text-xs tracking-[0.2em] text-aer-cream/50 leading-relaxed group-hover:text-aer-cream/80 transition-colors duration-500">
-                {cap.desc}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-
       </div>
     </section>
   );
