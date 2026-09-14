@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, type MouseEvent } from 'react';
 import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 type WorkItem = { id: string; title: string; category: string; description: string; type: 'glass' | 'editorial' | 'spatial' | 'kinetic' };
@@ -27,7 +27,7 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], ['3deg', '-3deg']), spring);
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], ['-3deg', '3deg']), spring);
   const even = index % 2 === 0;
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => { if (reducedMotion) return; const r = event.currentTarget.getBoundingClientRect(); mouseX.set((event.clientX-r.left)/r.width-0.5); mouseY.set((event.clientY-r.top)/r.height-0.5); };
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => { if (reducedMotion) return; const r = event.currentTarget.getBoundingClientRect(); mouseX.set((event.clientX-r.left)/r.width-0.5); mouseY.set((event.clientY-r.top)/r.height-0.5); };
   return <article ref={ref} className="relative py-8 md:py-12"><div className="mb-5 flex items-center justify-between border-b border-aer-cream/10 pb-3 text-[8px] uppercase tracking-[0.24em] text-aer-cream/25"><span>SELECTED / {item.id}</span><span>{item.category}</span></div><div className={`flex flex-col items-center gap-8 md:gap-12 ${even ? 'md:flex-row' : 'md:flex-row-reverse'}`}><motion.div style={{ y: parallaxY, rotateX, rotateY, transformPerspective: 1000 }} onMouseMove={handleMouseMove} onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }} className="group relative aspect-[4/5] w-full overflow-hidden border border-aer-cream/10 bg-aer-black md:aspect-[16/10] md:w-2/3"><motion.div initial={reducedMotion ? { opacity: 0 } : { scaleY: 1 }} whileInView={reducedMotion ? { opacity: 0 } : { scaleY: 0 }} viewport={{ once: true, margin: '-10%' }} transition={{ duration: reducedMotion ? 0 : 1 }} className="absolute inset-0 z-20 origin-top bg-aer-charcoal"/><StyleDemo type={item.type}/><div className="pointer-events-none absolute inset-0 z-10 border border-transparent transition-colors duration-500 group-hover:border-aer-blue/30"/></motion.div><div className={`w-full md:w-1/3 ${even ? 'text-left' : 'text-left md:text-right'}`}><p className="mb-4 text-[9px] tracking-[0.24em] text-aer-blue">{item.id}</p><h3 className="font-editorial text-4xl uppercase leading-[0.9] tracking-[-0.02em] text-aer-cream md:text-5xl lg:text-6xl">{item.title}</h3><p className={`mt-5 max-w-xs text-[10px] leading-6 tracking-[0.08em] text-aer-cream/40 ${even ? '' : 'md:ml-auto'}`}>{item.description}</p></div></div></article>;
 }
 
