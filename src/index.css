@@ -27,50 +27,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.font-editorial {
-  font-family: var(--font-serif);
-}
+.font-editorial { font-family: var(--font-serif); }
 
-button,
-a,
-input,
-textarea {
-  -webkit-tap-highlight-color: transparent;
-}
+button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
 
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 1px solid var(--color-aer-blue);
   outline-offset: 4px;
 }
 
-input::placeholder {
-  opacity: 1;
-}
+input::placeholder { opacity: 1; }
 
-/* Keep the page itself clean; the hero owns the interactive texture. */
-main > div:first-of-type {
-  background: transparent !important;
-}
+main > div:first-of-type { background: transparent !important; }
+main > div:first-of-type > div:first-child { display: none !important; }
+main section { background-color: transparent !important; }
 
-main > div:first-of-type > div:first-child {
-  display: none !important;
-}
-
-main section {
-  background-color: transparent !important;
-}
-
-/* Hero particle field: subtle at rest, responsive to pointer/touch. */
-#top {
-  isolation: isolate;
-}
-
-#top > section:first-of-type {
-  isolation: isolate;
-}
+#top { isolation: isolate; }
+#top > section:first-of-type { isolation: isolate; }
 
 #top > section:first-of-type .landing-particles {
   position: absolute;
@@ -87,19 +60,16 @@ main section {
   z-index: 2;
 }
 
-/* Keep only the hero's actual gradient; remove ornamental blobs and guide lines. */
 #top > section:first-of-type > div.absolute:not(:first-of-type) {
   display: none !important;
 }
 
-/* Remove the old hero microcopy and status rail. */
 #top > section:first-of-type > .relative > .grid > div:first-child > div:first-child,
 #top > section:first-of-type > .relative > .grid > div:last-child,
 #top > section:first-of-type > .relative > .mt-16 {
   display: none !important;
 }
 
-/* Hero CTA: restrained glass, matching the navbar. */
 #top > section:first-of-type a[href="#work"] {
   border-color: rgba(255, 255, 255, 0.12) !important;
   background: rgba(7, 16, 17, 0.42) !important;
@@ -118,12 +88,9 @@ main section {
   transform: translateY(-1px);
 }
 
-/* Remove decorative signal dots without touching structural borders. */
-main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] {
-  display: none !important;
-}
+main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] { display: none !important; }
 
-/* Seamless section handoff: remove only section-level dividers, not card/detail borders. */
+/* Section edges only: internal card borders remain intact. */
 #top > section {
   position: relative;
   border-top-color: transparent !important;
@@ -132,32 +99,43 @@ main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] {
   border-left-color: transparent !important;
 }
 
-/* A restrained atmospheric fade bridges each section without changing layout or spacing. */
+/* Soft blurred bridge between sections. The fade is deliberately broad so the eye never hits a hard seam. */
 #top > section + section::before {
   content: "";
   position: absolute;
-  top: -84px;
+  top: -96px;
+  left: -3%;
+  width: 106%;
+  height: 112px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 50% 55%, rgba(36, 145, 148, 0.11) 0%, rgba(7, 19, 20, 0.22) 32%, transparent 72%),
+    linear-gradient(to bottom, transparent 0%, rgba(7, 19, 20, 0.18) 48%, transparent 100%);
+  filter: blur(14px);
+  opacity: 0.9;
+}
+
+#top > section + section::after {
+  content: "";
+  position: absolute;
+  top: -42px;
   left: 0;
   right: 0;
   height: 84px;
   pointer-events: none;
   z-index: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(7, 19, 20, 0),
-    rgba(7, 19, 20, 0.24) 46%,
-    rgba(26, 92, 93, 0.10) 62%,
-    rgba(7, 19, 20, 0) 100%
-  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 38%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 38%, transparent 100%);
 }
 
-/* Keep every section's real content above the transition atmosphere. */
 #top > section > * {
   position: relative;
   z-index: 1;
 }
 
-/* Keep internal guide/detail borders untouched; only the section edges above are removed. */
 #top > section:first-of-type .border-t,
 #top > section:first-of-type .border-b,
 #top > section:first-of-type .border-l {
@@ -165,13 +143,8 @@ main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -179,7 +152,4 @@ main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] {
   }
 }
 
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
+::-webkit-scrollbar { width: 0px; background: transparent; }
