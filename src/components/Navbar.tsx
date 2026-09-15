@@ -5,47 +5,60 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const links = [
-    { name: 'Work', href: '#work' },
-    { name: 'About', href: '#studio' },
-    { name: 'Playground', href: '#process' },
-    { name: 'Resource', href: '#services' },
+    { name: "WORK", href: "#work" },
+    { name: "STUDIO", href: "#studio" },
+    { name: "PROCESS", href: "#process" },
+    { name: "SERVICES", href: "#services" },
+    { name: "CONTACT", href: "#contact" }
   ];
 
   return (
     <>
-      <nav className="fixed top-2 left-1/2 z-50 w-[calc(100%-16px)] max-w-[1440px] -translate-x-1/2 rounded-full border-2 border-white bg-white px-2 py-1.5 text-[#0a0a0a] shadow-[0_6px_20px_rgba(0,0,0,0.16)]">
-        <div className="flex h-10 items-center justify-between gap-2">
-          <a href="#" aria-label="Home" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0a0a0a] text-white" onClick={() => setMenuOpen(false)}>
-            <span className="font-editorial text-[23px] font-semibold leading-none">A</span>
-          </a>
-
-          <div className="hidden items-center gap-7 md:flex">
-            {links.map((link) => (
-              <a key={link.name} href={link.href} className="text-[11px] font-medium tracking-[-0.01em] text-[#0a0a0a] transition-opacity duration-200 hover:opacity-55">
-                {link.name}
-              </a>
-            ))}
-          </div>
-
-          <a href="mailto:AlsanaAlgo@gmail.com" className="hidden min-w-[128px] rounded-full bg-[#0a0a0a] px-4 py-2 text-center text-[10px] font-medium text-white transition-transform duration-200 hover:scale-[1.02] md:block">
-            AlsanaAlgo@gmail.com
-          </a>
-
-          <button className="rounded-full bg-[#0a0a0a] px-4 py-2 text-[10px] font-medium text-white md:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu">
-            {menuOpen ? 'Close' : 'Menu'}
-          </button>
+      <nav
+        className="fixed top-0 left-0 w-full z-50 px-6 py-4 md:px-12 md:py-5 flex justify-between items-center transition-all duration-500 backdrop-blur-md bg-aer-charcoal/80 border-b border-aer-cream/10 text-aer-cream"
+      >
+        <a href="#" className="text-xs tracking-[0.2em] font-medium z-50" onClick={() => setMenuOpen(false)}>
+          AER × VÆLOR
+        </a>
+        
+        <div className="hidden md:flex gap-8 text-[10px] tracking-[0.2em] font-medium">
+          {links.map((link) => (
+            <a key={link.name} href={link.href} className="hover:text-aer-blue transition-colors duration-300">
+              {link.name}
+            </a>
+          ))}
         </div>
+
+        <button 
+          className="md:hidden text-[10px] tracking-[0.2em] z-50 uppercase"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? 'CLOSE' : 'MENU'}
+        </button>
       </nav>
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div initial={{ opacity: 0, y: '-100%' }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: '-100%' }} transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }} className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-7 bg-[#0a0a0a] text-white md:hidden">
+          <motion.div
+            initial={{ opacity: 0, y: "-100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-40 bg-aer-black flex flex-col items-center justify-center gap-8 md:hidden"
+          >
             {links.map((link, i) => (
-              <motion.a key={link.name} href={link.href} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.06 + 0.15 }} onClick={() => setMenuOpen(false)} className="font-editorial text-4xl">
+              <motion.a
+                key={link.name}
+                href={link.href}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 + 0.3 }}
+                onClick={() => setMenuOpen(false)}
+                className="font-editorial text-4xl uppercase tracking-widest text-aer-cream hover:text-aer-blue transition-colors"
+              >
                 {link.name}
               </motion.a>
             ))}
-            <a href="mailto:AlsanaAlgo@gmail.com" onClick={() => setMenuOpen(false)} className="mt-2 text-xs text-white/70">AlsanaAlgo@gmail.com</a>
           </motion.div>
         )}
       </AnimatePresence>
