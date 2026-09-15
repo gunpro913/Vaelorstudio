@@ -46,8 +46,7 @@ textarea:focus-visible {
   outline-offset: 4px;
 }
 
-input::placeholder,
-textarea::placeholder {
+input::placeholder {
   opacity: 1;
 }
 
@@ -57,6 +56,10 @@ main > div:first-of-type {
 }
 
 main > div:first-of-type > div:first-child {
+  display: none !important;
+}
+
+main > div:first-of-type > header {
   display: none !important;
 }
 
@@ -75,12 +78,12 @@ main section:first-of-type .mt-16.flex {
   display: none !important;
 }
 
-/* Remove ornamental dot/signal elements without removing functional content. */
+/* Remove ornamental signal dots. */
 main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] {
   display: none !important;
 }
 
-/* Keep content cards clean: no unnecessary guide/grid borders. */
+/* Golden rule: no unnecessary grid/guide lines. */
 main section [class~="border-t"],
 main section [class~="border-b"],
 main section [class~="border-l"] {
