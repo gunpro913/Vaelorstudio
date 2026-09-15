@@ -15,38 +15,20 @@ export default function ExperienceManifesto() {
   const opacity3 = useTransform(scrollYProgress, [0.55, 0.75, 0.95, 1], [0, 1, 1, 1]);
   const y3 = useTransform(scrollYProgress, [0.55, 0.75, 0.95, 1], ['50%', '0%', '0%', '0%']);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 1.05]);
-  const x1 = useTransform(scrollYProgress, [0, 1], ['0%', '-4%']);
-  const x2 = useTransform(scrollYProgress, [0, 1], ['-4%', '0%']);
 
   return (
     <section ref={containerRef} className="relative h-[200vh] overflow-hidden">
-      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-6 md:px-12 text-center">
-        <div className="pointer-events-none absolute inset-0 flex flex-col justify-center overflow-hidden opacity-[0.025]" aria-hidden="true">
-          <motion.div style={{ x: x1 }} className="whitespace-nowrap font-editorial text-[18vw] leading-[.78]">
-            THE WEBSITE
-          </motion.div>
-          <motion.div style={{ x: x2 }} className="whitespace-nowrap font-editorial text-[18vw] leading-[.78]">
-            THE EXPERIENCE
-          </motion.div>
-        </div>
-
-        <motion.div style={{ scale }} className="relative z-10 w-full max-w-5xl">
-          <div className="mb-8 flex items-center justify-center gap-3 text-[9px] font-medium uppercase tracking-[.32em] text-white/30">
-            <span className="h-px w-7 bg-aer-blue/55" />
-            Experience / 005
-            <span className="h-px w-7 bg-aer-blue/55" />
-          </div>
-          <div className="relative mx-auto h-[230px] md:h-[280px]">
-            <motion.h2 style={{ opacity: opacity1, y: y1 }} className="absolute inset-x-0 top-0 font-editorial text-5xl leading-[.88] tracking-[-.04em] md:text-8xl lg:text-9xl">
-              The website isn't<br />the product.
-            </motion.h2>
-            <motion.h2 style={{ opacity: opacity2, y: y2 }} className="absolute inset-x-0 top-0 font-editorial text-5xl leading-[.88] tracking-[-.04em] text-aer-blue md:text-8xl lg:text-9xl">
-              The experience<br />is.
-            </motion.h2>
-            <motion.p style={{ opacity: opacity3, y: y3 }} className="absolute inset-x-0 top-8 mx-auto max-w-xl text-xs leading-7 tracking-[.16em] text-white/40 md:top-12 md:text-sm">
-              MINIMALISM DOES NOT MEAN EMPTY. EXPERIMENTAL DOES NOT MEAN CHAOTIC. EVERY ELEMENT SHOULD HAVE A PURPOSE.
-            </motion.p>
-          </div>
+      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-6 text-center md:px-12">
+        <motion.div style={{ scale }} className="relative z-10 flex h-[300px] w-full max-w-4xl flex-col items-center justify-center">
+          <motion.h2 style={{ opacity: opacity1, y: y1 }} className="absolute font-editorial text-4xl uppercase leading-tight md:text-6xl lg:text-7xl">
+            THE WEBSITE ISN'T THE PRODUCT.
+          </motion.h2>
+          <motion.h2 style={{ opacity: opacity2, y: y2 }} className="absolute font-editorial text-4xl uppercase italic leading-tight text-aer-blue md:text-6xl lg:text-7xl">
+            THE EXPERIENCE IS.
+          </motion.h2>
+          <motion.p style={{ opacity: opacity3, y: y3 }} className="absolute mx-auto max-w-lg text-xs uppercase leading-relaxed tracking-[0.2em] text-white/60 md:text-sm">
+            MINIMALISM DOES NOT MEAN EMPTY. EXPERIMENTAL DOES NOT MEAN CHAOTIC. EVERY ELEMENT MUST HAVE A PURPOSE.
+          </motion.p>
         </motion.div>
       </div>
     </section>
