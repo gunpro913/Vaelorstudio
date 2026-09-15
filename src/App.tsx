@@ -5,6 +5,7 @@ import LandingPage from './components/LandingPage';
 import Navbar from './components/Navbar';
 import Admin from './components/Admin';
 import ImageAdmin from './components/ImageAdmin';
+import PortfolioImageHydrator from './components/PortfolioImageHydrator';
 import { supabase } from './lib/supabase';
 
 function PublicSite() {
@@ -37,6 +38,7 @@ function PublicSite() {
         >
           <Navbar />
           <LandingPage />
+          <PortfolioImageHydrator />
         </motion.main>
       )}
     </>
