@@ -9,7 +9,7 @@ const links = [
   { name: 'Resource', href: '#capabilities', icon: BookOpen },
 ];
 
-const itemTransition = { duration: 0.24, ease: [0.22, 1, 0.36, 1] as const };
+const itemTransition = { duration: 0.38, ease: [0.16, 1, 0.3, 1] as const };
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,7 +31,7 @@ export default function Navbar() {
       <motion.nav
         layout="size"
         initial={false}
-        transition={{ layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] } }}
+        transition={{ layout: { duration: 0.46, ease: [0.16, 1, 0.3, 1] } }}
         className={`fixed left-1/2 top-4 z-50 -translate-x-1/2 rounded-full border border-white/[0.12] bg-[#071011]/45 p-1.5 text-white shadow-[0_12px_36px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-xl backdrop-saturate-125 ${
           scrolled ? 'w-auto' : 'w-[min(760px,calc(100vw-32px))]'
         }`}
@@ -41,7 +41,7 @@ export default function Navbar() {
           <a
             href="#top"
             aria-label="Home"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white text-[#0a0b0b] transition-transform duration-200 hover:scale-[1.04] focus-visible:outline focus-visible:outline-1 focus-visible:outline-aer-blue"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white text-[#0a0b0b] transition-transform duration-300 ease-out hover:scale-[1.04] focus-visible:outline focus-visible:outline-1 focus-visible:outline-aer-blue"
             onClick={closeMenu}
           >
             <span className="font-editorial text-[23px] font-semibold leading-none">A</span>
@@ -62,7 +62,7 @@ export default function Navbar() {
                   onHoverEnd={() => setActiveItem(null)}
                   onFocus={() => setActiveItem(link.name)}
                   onBlur={() => setActiveItem(null)}
-                  className="group flex h-9 items-center overflow-hidden rounded-full border border-transparent px-2.5 text-white/70 transition-colors duration-200 hover:border-white/10 hover:bg-white/[0.065] hover:text-white focus-visible:border-white/15 focus-visible:bg-white/[0.065] focus-visible:text-white focus-visible:outline-none"
+                  className="group flex h-9 items-center overflow-hidden rounded-full border border-transparent px-2.5 text-white/70 transition-colors duration-300 ease-out hover:border-white/10 hover:bg-white/[0.065] hover:text-white focus-visible:border-white/15 focus-visible:bg-white/[0.065] focus-visible:text-white focus-visible:outline-none"
                   whileHover={{ scale: 1.015 }}
                   whileTap={{ scale: 0.985 }}
                   transition={itemTransition}
@@ -98,7 +98,7 @@ export default function Navbar() {
                 onHoverEnd={() => setActiveItem(null)}
                 onFocus={() => setActiveItem('Email')}
                 onBlur={() => setActiveItem(null)}
-                className="hidden h-9 items-center overflow-hidden rounded-full border border-white/10 bg-white/[0.045] px-2.5 text-white/80 transition-colors duration-200 hover:bg-white/[0.085] hover:text-white focus-visible:outline-none md:flex"
+                className="hidden h-9 items-center overflow-hidden rounded-full border border-white/10 bg-white/[0.045] px-2.5 text-white/80 transition-colors duration-300 ease-out hover:bg-white/[0.085] hover:text-white focus-visible:outline-none md:flex"
                 whileHover={{ scale: 1.015 }}
                 whileTap={{ scale: 0.985 }}
                 transition={itemTransition}
@@ -141,7 +141,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: '-100%' }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-100%' }}
-            transition={{ duration: 0.48, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 0.58, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-7 bg-[#080b0c]/92 text-white backdrop-blur-xl md:hidden"
             role="dialog"
             aria-modal="true"
@@ -156,9 +156,9 @@ export default function Navbar() {
                   href={link.href}
                   initial={{ opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: i * 0.05 + 0.12 }}
+                  transition={{ duration: 0.42, delay: i * 0.06 + 0.12, ease: [0.16, 1, 0.3, 1] }}
                   onClick={closeMenu}
-                  className="flex items-center gap-3 font-editorial text-4xl transition-colors hover:text-aer-blue focus-visible:outline focus-visible:outline-1 focus-visible:outline-aer-blue"
+                  className="flex items-center gap-3 font-editorial text-4xl transition-colors duration-300 hover:text-aer-blue focus-visible:outline focus-visible:outline-1 focus-visible:outline-aer-blue"
                 >
                   <Icon size={25} strokeWidth={1.5} aria-hidden="true" />
                   {link.name}
