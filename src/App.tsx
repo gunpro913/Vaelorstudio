@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Preloader from './components/Preloader';
 import LandingPage from './components/LandingPage';
+import LandingParticles from './components/LandingParticles';
 import Navbar from './components/Navbar';
 import Admin from './components/Admin';
 import ImageAdmin from './components/ImageAdmin';
@@ -38,6 +39,7 @@ function PublicSite() {
         >
           <Navbar />
           <LandingPage />
+          <LandingParticles />
           <PortfolioImageHydrator />
         </motion.main>
       )}
