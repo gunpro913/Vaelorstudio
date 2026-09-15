@@ -9,33 +9,35 @@ export default function ExperienceManifesto() {
   });
 
   const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.3, 1], [0, 1, 0, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.15, 0.3, 1], ['48%', '0%', '-48%', '-48%']);
+  const y1 = useTransform(scrollYProgress, [0, 0.15, 0.3, 1], ['50%', '0%', '-50%', '-50%']);
   const opacity2 = useTransform(scrollYProgress, [0.25, 0.45, 0.6, 1], [0, 1, 0, 0]);
-  const y2 = useTransform(scrollYProgress, [0.25, 0.45, 0.6, 1], ['48%', '0%', '-48%', '-48%']);
+  const y2 = useTransform(scrollYProgress, [0.25, 0.45, 0.6, 1], ['50%', '0%', '-50%', '-50%']);
   const opacity3 = useTransform(scrollYProgress, [0.55, 0.75, 0.95, 1], [0, 1, 1, 1]);
-  const y3 = useTransform(scrollYProgress, [0.55, 0.75, 0.95, 1], ['48%', '0%', '0%', '0%']);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1, 1.03]);
+  const y3 = useTransform(scrollYProgress, [0.55, 0.75, 0.95, 1], ['50%', '0%', '0%', '0%']);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 1.05]);
+  const x1 = useTransform(scrollYProgress, [0, 1], ['0%', '-4%']);
+  const x2 = useTransform(scrollYProgress, [0, 1], ['-4%', '0%']);
 
   return (
-    <section ref={containerRef} className="relative h-[180vh] overflow-hidden border-y border-white/[.05] bg-[#0a0b0b]">
-      <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden px-5 md:px-10">
-        <div className="pointer-events-none absolute inset-0 flex flex-col justify-center overflow-hidden opacity-[0.025]">
-          <motion.div style={{ x: useTransform(scrollYProgress, [0, 1], ['4%', '-4%']) }} className="whitespace-nowrap font-editorial text-[18vw] leading-[.78] text-white">
+    <section ref={containerRef} className="relative h-[200vh] overflow-hidden">
+      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-6 md:px-12 text-center">
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-center overflow-hidden opacity-[0.025]" aria-hidden="true">
+          <motion.div style={{ x: x1 }} className="whitespace-nowrap font-editorial text-[18vw] leading-[.78]">
             THE WEBSITE
           </motion.div>
-          <motion.div style={{ x: useTransform(scrollYProgress, [0, 1], ['-4%', '4%']) }} className="whitespace-nowrap font-editorial text-[18vw] leading-[.78] text-white">
+          <motion.div style={{ x: x2 }} className="whitespace-nowrap font-editorial text-[18vw] leading-[.78]">
             THE EXPERIENCE
           </motion.div>
         </div>
 
-        <motion.div style={{ scale }} className="relative z-10 w-full max-w-5xl text-center">
+        <motion.div style={{ scale }} className="relative z-10 w-full max-w-5xl">
           <div className="mb-8 flex items-center justify-center gap-3 text-[9px] font-medium uppercase tracking-[.32em] text-white/30">
             <span className="h-px w-7 bg-aer-blue/55" />
             Experience / 005
             <span className="h-px w-7 bg-aer-blue/55" />
           </div>
           <div className="relative mx-auto h-[230px] md:h-[280px]">
-            <motion.h2 style={{ opacity: opacity1, y: y1 }} className="absolute inset-x-0 top-0 font-editorial text-5xl leading-[.88] tracking-[-.04em] text-white md:text-8xl lg:text-9xl">
+            <motion.h2 style={{ opacity: opacity1, y: y1 }} className="absolute inset-x-0 top-0 font-editorial text-5xl leading-[.88] tracking-[-.04em] md:text-8xl lg:text-9xl">
               The website isn't<br />the product.
             </motion.h2>
             <motion.h2 style={{ opacity: opacity2, y: y2 }} className="absolute inset-x-0 top-0 font-editorial text-5xl leading-[.88] tracking-[-.04em] text-aer-blue md:text-8xl lg:text-9xl">
