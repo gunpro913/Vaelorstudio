@@ -43,25 +43,28 @@ export async function POST(request: Request) {
   const expectedPassword = process.env.ADMIN_PASSWORD;
   if (!expectedPassword) return json({ error: 'Admin password is not configured.' }, 503);
 
-  let body: { password?: string; slot?: string; filename?: string; contentType?: string; data?: string };
+  let form: FormData;
   try {
-    body = await request.json();
+    form = await request.formData();
   } catch {
-    return json({ error: 'Invalid request.' }, 400);
+    return json({ error: 'Invalid upload request.' }, 400);
   }
 
-  if (body.password !== expectedPassword) return json({ error: 'Incorrect password.' }, 401);
-  if (!body.slot || !isSlot(body.slot)) return json({ error: 'Invalid image slot.' }, 400);
-  if (!body.data || !body.contentType?.startsWith('image/')) return json({ error: 'Please upload an image.' }, 400);
+  const password = String(form.get('password') || '');
+  const slot = String(form.get('slot') || '');
+  const file = form.get('file');
+
+  if (password !== expectedPassword) return json({ error: 'Incorrect password.' }, 401);
+  if (!isSlot(slot)) return json({ error: 'Invalid image slot.' }, 400);
+  if (!(file instanceof File)) return json({ error: 'Please upload an image.' }, 400);
 
   const allowed = ['image/jpeg', 'image/png', 'image/webp'];
-  if (!allowed.includes(body.contentType)) return json({ error: 'Use JPG, PNG or WebP.' }, 400);
+  if (!allowed.includes(file.type)) return json({ error: 'Use JPG, PNG or WebP.' }, 400);
+  if (file.size > 3 * 1024 * 1024) return json({ error: 'Image must be 3 MB or smaller.' }, 400);
 
-  const binary = Buffer.from(body.data, 'base64');
-  if (binary.byteLength > 3 * 1024 * 1024) return json({ error: 'Image must be 3 MB or smaller.' }, 400);
-
-  const extension = body.contentType === 'image/jpeg' ? 'jpg' : body.contentType.split('/')[1];
-  const path = `${body.slot}.${extension}`;
+  const extension = file.type === 'image/jpeg' ? 'jpg' : file.type.split('/')[1];
+  const path = `${slot}.${extension}`;
+  const binary = Buffer.from(await file.arrayBuffer());
 
   const existing = await client.storage.getBucket(bucket);
   if (existing.error) {
@@ -76,7 +79,7 @@ export async function POST(request: Request) {
   }
 
   const { error: uploadError } = await client.storage.from(bucket).upload(path, binary, {
-    contentType: body.contentType,
+    contentType: file.type,
     cacheControl: '3600',
     upsert: true,
   });
@@ -84,7 +87,7 @@ export async function POST(request: Request) {
 
   const { data: publicData } = client.storage.from(bucket).getPublicUrl(path);
   const images = await readImages(client);
-  images[body.slot] = `${publicData.publicUrl}?v=${Date.now()}`;
+  images[slot] = `${publicData.publicUrl}?v=${Date.now()}`;
 
   const { error: settingsError } = await client.from('site_settings').upsert({
     key: 'selected_direction_images',
