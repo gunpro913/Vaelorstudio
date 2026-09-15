@@ -54,27 +54,71 @@ main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] { display: none !i
 #top > section > * { position: relative; z-index: 1; }
 #top > section:first-of-type .border-t, #top > section:first-of-type .border-b, #top > section:first-of-type .border-l { border-color: transparent !important; }
 
-/* Footer: remove decorative microcopy and keep the CTA consistent with the home button. */
-#top > footer > .relative > .flex.flex-col { display: none !important; }
-#top > footer .relative > .text-center > .relative.mx-auto.mt-14 { height: auto !important; width: auto !important; margin-top: 3.5rem !important; }
-#top > footer .relative > .text-center > .relative.mx-auto.mt-14 > span { display: none !important; }
-#top > footer a[href^="mailto:"] {
-  height: auto !important; width: auto !important; min-width: 0 !important;
-  border-radius: 9999px !important;
-  border-color: rgba(255,255,255,.12) !important;
-  background: rgba(7,16,17,.42) !important;
-  color: rgba(250,248,245,.88) !important;
-  padding: .75rem 1.25rem !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.06) !important;
-  backdrop-filter: blur(18px) saturate(125%);
-  -webkit-backdrop-filter: blur(18px) saturate(125%);
-  transition: border-color 280ms ease, background-color 280ms ease, color 280ms ease, transform 280ms ease, box-shadow 280ms ease !important;
+/* Process-refinement footer treatment: the existing contact section becomes the reference CTA card. */
+#top > #contact {
+  padding-top: 7rem !important;
+  padding-bottom: 7rem !important;
 }
-#top > footer a[href^="mailto:"]:hover { border-color: rgba(64,224,208,.42) !important; background: rgba(64,224,208,.10) !important; color: #FAF8F5 !important; transform: translateY(-1px); }
-#top > footer .relative > .text-center > p { display: none !important; }
-#top > footer .relative > .mt-24 > div:first-child, #top > footer .relative > .mt-24 > div:last-child { display: none !important; }
-#top > footer .relative > .mt-24 { grid-template-columns: 1fr !important; justify-items: center; }
-#top > footer .relative > .mt-24 nav { font-size: 9px !important; }
+#top > #contact > div {
+  position: relative;
+  overflow: hidden;
+  max-width: 1380px !important;
+  padding: 4.5rem 4rem !important;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 2.75rem;
+  background:
+    radial-gradient(circle at 84% 20%, rgba(235,250,255,.34) 0%, transparent 18%),
+    radial-gradient(circle at 14% 86%, rgba(64,224,208,.13) 0%, transparent 30%),
+    linear-gradient(110deg, #050708 0%, #0a1014 52%, #071216 100%);
+  box-shadow: 0 35px 100px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.06);
+}
+#top > #contact > div::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: 4%;
+  width: 20rem;
+  height: 125%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(230,247,255,.20), transparent 58%);
+  filter: blur(26px);
+}
+#top > #contact > div > .grid { position: relative; z-index: 1; }
+#top > #contact h2 { max-width: 900px; }
+#top > #contact a[href^="mailto:"] {
+  border-color: rgba(255,255,255,.18) !important;
+  background: rgba(255,255,255,.04) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 40px rgba(0,0,0,.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+#top > #contact a[href^="mailto:"]:hover {
+  border-color: rgba(64,224,208,.55) !important;
+  background: #40E0D0 !important;
+  color: #061011 !important;
+}
+
+/* The legacy footer lives inside LandingPage; the new Footer component owns the final FAQ/footer. */
+#top > footer { display: none !important; }
+
+#site-footer { isolation: isolate; }
+#site-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(64,224,208,.35), transparent);
+}
+#site-footer #faq button { -webkit-appearance: none; appearance: none; }
+#site-footer #faq button:hover .text-white\/75 { color: rgba(255,255,255,.95); }
+
+@media (max-width: 767px) {
+  #top > #contact { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+  #top > #contact > div { padding: 2.25rem 1.35rem !important; border-radius: 1.75rem; }
+  #top > #contact > div::after { right: -35%; width: 18rem; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
