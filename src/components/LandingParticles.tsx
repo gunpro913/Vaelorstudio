@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 
 export default function LandingParticles() {
   useEffect(() => {
-    const section = document.getElementById('top');
-    if (!section) return;
+    const hero = document.querySelector<HTMLElement>('#top > section:first-of-type');
+    if (!hero) return;
 
     const canvas = document.createElement('canvas');
     canvas.setAttribute('aria-hidden', 'true');
     canvas.className = 'landing-particles';
-    section.prepend(canvas);
+    hero.prepend(canvas);
 
     const context = canvas.getContext('2d');
     if (!context) {
@@ -24,7 +24,7 @@ export default function LandingParticles() {
     let frame = 0;
 
     const resize = () => {
-      const rect = section.getBoundingClientRect();
+      const rect = hero.getBoundingClientRect();
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
       width = rect.width;
       height = rect.height;
@@ -71,7 +71,7 @@ export default function LandingParticles() {
     };
 
     const updatePointer = (clientX: number, clientY: number) => {
-      const rect = section.getBoundingClientRect();
+      const rect = hero.getBoundingClientRect();
       pointer.x = clientX - rect.left;
       pointer.y = clientY - rect.top;
       pointer.active = pointer.x >= 0 && pointer.x <= width && pointer.y >= 0 && pointer.y <= height;
@@ -96,20 +96,20 @@ export default function LandingParticles() {
     resize();
     draw();
     window.addEventListener('resize', resize, { passive: true });
-    section.addEventListener('pointermove', onPointerMove, { passive: true });
-    section.addEventListener('pointerleave', onPointerLeave, { passive: true });
-    section.addEventListener('touchstart', onTouchStart, { passive: true });
-    section.addEventListener('touchmove', onTouchMove, { passive: true });
-    section.addEventListener('touchend', onTouchEnd, { passive: true });
+    hero.addEventListener('pointermove', onPointerMove, { passive: true });
+    hero.addEventListener('pointerleave', onPointerLeave, { passive: true });
+    hero.addEventListener('touchstart', onTouchStart, { passive: true });
+    hero.addEventListener('touchmove', onTouchMove, { passive: true });
+    hero.addEventListener('touchend', onTouchEnd, { passive: true });
 
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener('resize', resize);
-      section.removeEventListener('pointermove', onPointerMove);
-      section.removeEventListener('pointerleave', onPointerLeave);
-      section.removeEventListener('touchstart', onTouchStart);
-      section.removeEventListener('touchmove', onTouchMove);
-      section.removeEventListener('touchend', onTouchEnd);
+      hero.removeEventListener('pointermove', onPointerMove);
+      hero.removeEventListener('pointerleave', onPointerLeave);
+      hero.removeEventListener('touchstart', onTouchStart);
+      hero.removeEventListener('touchmove', onTouchMove);
+      hero.removeEventListener('touchend', onTouchEnd);
       canvas.remove();
     };
   }, []);
