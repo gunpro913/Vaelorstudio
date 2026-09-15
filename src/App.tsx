@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
 import Footer from './components/Footer';
