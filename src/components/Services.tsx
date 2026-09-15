@@ -1,82 +1,81 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-const services = [
-  { name: "WEBSITE DESIGN", desc: "Crafting bespoke digital environments that reflect brand essence and captivate audiences." },
-  { name: "INTERACTIVE EXPERIENCES", desc: "Building immersive, scroll-driven narratives that turn passive viewers into active participants." },
-  { name: "3D & MOTION", desc: "Integrating fluid cinematic motion and spatial design to elevate the digital atmosphere." },
-  { name: "WEBSITE REDESIGN", desc: "Transforming outdated platforms into modern, high-performance editorial experiences." },
-  { name: "CREATIVE DEVELOPMENT", desc: "Pushing the boundaries of web technology with experimental, award-winning code." }
+const directions = [
+  {
+    number: '01',
+    name: 'WEBSITE DESIGN',
+    desc: 'Brand-led digital identities and editorial interfaces built with clarity and intent.'
+  },
+  {
+    number: '02',
+    name: 'INTERACTIVE EXPERIENCES',
+    desc: 'Scroll, interaction and narrative used deliberately to turn attention into engagement.'
+  },
+  {
+    number: '03',
+    name: '3D & MOTION',
+    desc: 'Spatial systems, motion and atmosphere that give digital experiences a stronger presence.'
+  },
+  {
+    number: '04',
+    name: 'WEBSITE REDESIGN',
+    desc: 'Existing platforms reframed through stronger visual direction, UX and performance.'
+  },
+  {
+    number: '05',
+    name: 'CREATIVE DEVELOPMENT',
+    desc: 'Experimental front-end work that extends the visual language through technology.'
+  }
 ];
 
 export default function Services() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
-    <section id="services" className="py-24 md:py-32 px-6 md:px-12 bg-aer-charcoal">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-16 flex justify-between items-end">
-          <p className="text-aer-blue text-xs tracking-[0.2em]">SERVICES</p>
-          <p className="hidden md:block text-[9px] tracking-[0.3em] text-aer-cream/30">SYS_CAPABILITY_MATRIX</p>
+    <section id="services" className="bg-aer-charcoal px-6 py-28 md:px-12 md:py-40">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-10 border-b border-aer-cream/10 pb-16 md:grid-cols-[0.7fr_1.3fr] md:pb-24">
+          <div className="flex items-start justify-between md:block">
+            <p className="text-xs tracking-[0.24em] text-aer-blue">02 — SELECTED DIRECTION</p>
+            <p className="hidden pt-4 text-[9px] tracking-[0.28em] text-aer-cream/30 md:block">WHAT WE MAKE</p>
+          </div>
+
+          <div className="max-w-4xl">
+            <h2 className="font-editorial text-4xl leading-[0.98] tracking-[-0.02em] text-aer-cream md:text-6xl lg:text-7xl">
+              Digital experiences built with intention.
+            </h2>
+            <p className="mt-8 max-w-2xl text-sm leading-7 tracking-[0.04em] text-aer-cream/50 md:text-base md:leading-8">
+              We design and develop distinctive websites where visual identity, interaction and technology work as one.
+            </p>
+          </div>
         </div>
-        
-        <div className="flex flex-col gap-4 md:gap-6">
-          {services.map((service, i) => {
-            const isHovered = hoveredIndex === i;
-            return (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.8, delay: i * 0.1, ease: "easeInOut" }}
-                onMouseEnter={() => setHoveredIndex(i)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="cursor-pointer border-b border-aer-cream/10 pb-4 md:pb-8 relative flex flex-col items-start"
-              >
-                {/* Text-as-interface: inverts on hover smoothly */}
-                <motion.h3 
-                  animate={{ 
-                    color: isHovered ? 'var(--color-aer-charcoal)' : 'rgba(250, 248, 245, 0.6)',
-                    backgroundColor: isHovered ? 'var(--color-aer-cream)' : 'transparent',
-                    paddingLeft: isHovered ? '16px' : '0px',
-                    paddingRight: isHovered ? '16px' : '0px',
-                    letterSpacing: isHovered ? '0.1em' : 'normal',
-                    fontStyle: isHovered ? 'italic' : 'normal'
-                  }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="font-editorial text-xl md:text-3xl lg:text-4xl uppercase inline-block py-2"
-                >
-                  {service.name}
-                </motion.h3>
-                
-                {/* Expandable Description */}
-                <AnimatePresence>
-                  {isHovered && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                      animate={{ height: "auto", opacity: 1, marginTop: 16 }}
-                      exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                      className="overflow-hidden max-w-2xl pl-2"
-                    >
-                      <p className="text-[10px] tracking-[0.2em] text-aer-cream/50 uppercase">
-                        {service.desc}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                
-                {/* Hover Underline */}
-                <motion.div 
-                  initial={{ x: "-100%" }}
-                  animate={{ x: isHovered ? "0%" : "-100%" }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="absolute bottom-0 left-0 w-full h-[1px] bg-aer-blue" 
-                />
-              </motion.div>
-            );
-          })}
+
+        <div className="divide-y divide-aer-cream/10">
+          {directions.map((direction, i) => (
+            <motion.div
+              key={direction.number}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10% 0px' }}
+              transition={{ duration: 0.65, delay: i * 0.06, ease: 'easeOut' }}
+              className="group grid gap-6 py-8 md:grid-cols-[0.7fr_1.3fr] md:py-10 lg:grid-cols-[0.7fr_1.3fr_1fr]"
+            >
+              <div className="flex items-start gap-4">
+                <span className="pt-2 text-[9px] tracking-[0.2em] text-aer-blue">{direction.number}</span>
+                <h3 className="font-editorial text-2xl leading-none tracking-[-0.01em] text-aer-cream/75 transition-all duration-500 group-hover:translate-x-2 group-hover:text-aer-cream md:text-4xl lg:text-5xl">
+                  {direction.name}
+                </h3>
+              </div>
+
+              <p className="max-w-xl text-xs leading-6 tracking-[0.08em] text-aer-cream/35 transition-colors duration-500 group-hover:text-aer-cream/60 md:text-sm md:leading-7">
+                {direction.desc}
+              </p>
+
+              <div className="hidden items-end justify-end lg:flex">
+                <span className="text-[9px] tracking-[0.25em] text-aer-cream/20 transition-colors duration-500 group-hover:text-aer-blue">
+                  EXPLORE —›
+                </span>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
