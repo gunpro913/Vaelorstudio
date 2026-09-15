@@ -4,6 +4,7 @@ import Preloader from './components/Preloader';
 import LandingPage from './components/LandingPage';
 import Navbar from './components/Navbar';
 import Admin from './components/Admin';
+import ImageAdmin from './components/ImageAdmin';
 import { supabase } from './lib/supabase';
 
 function PublicSite() {
@@ -43,6 +44,7 @@ function PublicSite() {
 }
 
 function App() {
+  if (window.location.pathname.startsWith('/admin/images')) return <ImageAdmin />;
   if (window.location.pathname.startsWith('/admin')) return <Admin />;
   return <PublicSite />;
 }
