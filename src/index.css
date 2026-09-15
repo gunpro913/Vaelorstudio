@@ -63,15 +63,24 @@ main section {
   background-color: transparent !important;
 }
 
-/* Hero: remove editorial metadata, decorative shapes, grids and guide lines. */
-main section:first-of-type > :nth-child(-n+5) {
-  display: none !important;
+/* Landing: the interactive texture is a dot field, never a line grid. */
+#top {
+  isolation: isolate;
 }
 
-main section:first-of-type .mb-6,
-main section:first-of-type .hidden.pb-3,
-main section:first-of-type .mt-16.flex {
-  display: none !important;
+.landing-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.76;
+}
+
+/* Keep the landing copy above the particle layer. */
+#top > .relative {
+  z-index: 2;
 }
 
 /* Hero CTA: match the navbar's restrained glassmorphism. */
