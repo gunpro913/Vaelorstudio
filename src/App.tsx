@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import Preloader from './components/Preloader';
-import LandingPage from './components/LandingPage';
-import LandingParticles from './components/LandingParticles';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
+import LandingPage from './components/LandingPage';
 import Footer from './components/Footer';
-import Admin from './components/Admin';
-import ImageAdmin from './components/ImageAdmin';
-import PortfolioImageHydrator from './components/PortfolioImageHydrator';
-import { supabase } from './lib/supabase';
+import ExperienceManifesto from './components/ExperienceManifesto';
+import AiApproachRefined from './components/AiApproachRefined';
 
-function PublicSite() {
+function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,18 +14,10 @@ function PublicSite() {
     return () => window.clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (!supabase) return;
-    void supabase.from('analytics_events').insert({
-      event_name: 'page_view',
-      path: window.location.pathname,
-    });
-  }, []);
-
   return (
     <>
       <AnimatePresence mode="wait">
-        {loading && <Preloader key="preloader" />}
+        {loading && <div key="preloader" className="fixed inset-0 z-[100] flex items-center justify-center bg-[#080d0e] text-aer-cream">Loading</div>}
       </AnimatePresence>
       {!loading && (
         <motion.main
@@ -40,19 +28,13 @@ function PublicSite() {
         >
           <Navbar />
           <LandingPage />
+          <ExperienceManifesto />
+          <AiApproachRefined />
           <Footer />
-          <LandingParticles />
-          <PortfolioImageHydrator />
         </motion.main>
       )}
     </>
   );
-}
-
-function App() {
-  if (window.location.pathname.startsWith('/admin/images')) return <ImageAdmin />;
-  if (window.location.pathname.startsWith('/admin')) return <Admin />;
-  return <PublicSite />;
 }
 
 export default App;
