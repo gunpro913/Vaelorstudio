@@ -118,6 +118,7 @@ main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] { display: none !i
 }
 #top > #contact > div > .grid > a[href^="mailto:"] {
   min-width: 205px;
+  min-height: 44px;
   justify-content: center;
   transform: translateY(0);
 }
@@ -136,7 +137,7 @@ main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] { display: none !i
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(64,224,208,.35), transparent);
 }
-#site-footer #faq button { -webkit-appearance: none; appearance: none; }
+#site-footer #faq button { -webkit-appearance: none; appearance: none; min-height: 44px; }
 #site-footer #faq button:hover .text-white\/75 { color: rgba(255,255,255,.95); }
 
 @media (max-width: 767px) {
@@ -145,6 +146,10 @@ main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] { display: none !i
   #top > #contact > div::after { right: -35%; width: 18rem; }
   #top > #contact > div > .grid::before { margin-bottom: -1rem; line-height: 1.35; }
   #top > #contact > div > .grid > a[href^="mailto:"] { width: 100%; }
+  #site-footer #faq { padding-top: 4rem; padding-bottom: 4rem; }
+  #site-footer #faq button { padding-top: 1rem; padding-bottom: 1rem; }
+  #site-footer #faq button > span:first-child { min-width: 0; }
+  #site-footer #faq button > span:first-child > span:last-child { overflow-wrap: anywhere; }
 }
 
 @media (prefers-reduced-motion: reduce) {
