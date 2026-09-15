@@ -1,107 +1,121 @@
-import { ArrowUpRight, Mail } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, Mail } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const footerLinks = [
-  {
-    title: 'EXPLORE',
-    links: [
-      { label: 'Work', href: '#work' },
-      { label: 'About', href: '#studio' },
-      { label: 'Playground', href: '#lab' },
-      { label: 'Capabilities', href: '#capabilities' },
-    ],
-  },
-  {
-    title: 'CONNECT',
-    links: [
-      { label: 'Email', href: 'mailto:AlsanaAlgo@gmail.com' },
-      { label: 'Start a project', href: 'mailto:AlsanaAlgo@gmail.com?subject=Project%20Inquiry' },
-    ],
-  },
+  { label: 'WORK', href: '#work' },
+  { label: 'ABOUT', href: '#studio' },
+  { label: 'PLAYGROUND', href: '#lab' },
+  { label: 'CAPABILITIES', href: '#capabilities' },
 ];
 
 export default function Footer() {
+  const [pointer, setPointer] = useState({ x: 50, y: 50 });
   const year = new Date().getFullYear();
 
+  useEffect(() => {
+    const move = (event: MouseEvent) => {
+      setPointer({
+        x: (event.clientX / window.innerWidth) * 100,
+        y: (event.clientY / window.innerHeight) * 100,
+      });
+    };
+
+    window.addEventListener('mousemove', move, { passive: true });
+    return () => window.removeEventListener('mousemove', move);
+  }, []);
+
   return (
-    <footer className="relative overflow-hidden px-4 pb-5 pt-8 text-aer-cream md:px-8 md:pb-8 lg:px-12">
-      <div className="mx-auto max-w-[1440px]">
-        <section className="relative overflow-hidden rounded-[2rem] border border-white/[0.09] bg-[#050b0c] px-6 py-20 text-center shadow-[0_30px_80px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.05)] md:rounded-[2.5rem] md:px-10 md:py-28">
-          <div className="pointer-events-none absolute inset-x-0 -top-1/2 h-[150%] bg-[radial-gradient(ellipse_at_center,rgba(64,224,208,0.17),rgba(64,224,208,0.04)_28%,transparent_58%)]" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.48)_80%)]" />
+    <footer className="relative overflow-hidden px-3 pb-3 pt-10 text-aer-cream md:px-5 md:pb-5 lg:px-7">
+      <div className="relative mx-auto max-w-[1600px] overflow-hidden rounded-[2rem] border border-white/[0.1] bg-[#030909] shadow-[0_35px_100px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.06)] md:rounded-[2.75rem]">
+        {/* A living light field: the footer subtly follows the visitor instead of behaving like a static block. */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-80 transition-[background] duration-700 ease-out"
+          style={{
+            background: `radial-gradient(circle at ${pointer.x}% ${pointer.y}%, rgba(64,224,208,0.16) 0%, rgba(64,224,208,0.045) 15%, transparent 38%)`,
+          }}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(64,224,208,0.10),transparent_35%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(110deg,transparent_0%,rgba(255,255,255,0.025)_48%,transparent_52%)]" />
 
-          <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center">
-            <p className="mb-6 text-[9px] font-medium tracking-[0.32em] text-aer-blue/75">05 — CONTACT</p>
-            <h2 className="font-editorial text-4xl uppercase leading-[0.92] tracking-[-0.025em] text-aer-cream sm:text-5xl md:text-7xl lg:text-[5.75rem]">
-              MAKE SOMETHING
-              <br />
-              WORTH <span className="italic text-aer-blue">EXPERIENCING.</span>
-            </h2>
-            <p className="mt-7 max-w-md text-xs leading-6 text-aer-cream/45 md:text-sm">
-              Digital experiences built with intention, clarity, and a little bit of obsession.
-            </p>
-            <a
-              href="mailto:AlsanaAlgo@gmail.com?subject=Project%20Inquiry"
-              className="group mt-9 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white px-5 py-3 text-[10px] font-semibold tracking-[0.16em] text-[#071011] transition-all duration-300 hover:-translate-y-0.5 hover:bg-aer-blue hover:shadow-[0_12px_36px_rgba(64,224,208,0.2)]"
-            >
-              START A PROJECT
-              <ArrowUpRight size={14} strokeWidth={1.8} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+        <div className="relative min-h-[720px] px-6 py-7 md:min-h-[820px] md:px-10 md:py-10 lg:px-14">
+          <div className="flex items-start justify-between text-[9px] font-medium tracking-[0.28em] text-aer-cream/38">
+            <span>05 / CONTACT</span>
+            <span className="hidden md:block">AER × VÆLOR — DIGITAL STUDIO</span>
+            <a href="#top" className="transition-colors hover:text-aer-blue">RETURN ↑</a>
           </div>
-        </section>
 
-        <section className="mt-3 rounded-[1.75rem] border border-white/[0.1] bg-[#0b1516]/78 px-6 py-9 shadow-[0_18px_55px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-xl md:mt-4 md:rounded-[2rem] md:px-10 md:py-10 lg:px-12">
-          <div className="grid gap-12 md:grid-cols-[1.25fr_1fr] lg:grid-cols-[1.6fr_1fr]">
-            <div>
-              <a href="#top" className="group inline-flex items-center gap-3" aria-label="Back to top">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-aer-cream text-[#071011] transition-transform duration-300 group-hover:scale-105">
-                  <span className="font-editorial text-[24px] font-semibold leading-none">A</span>
-                </span>
-                <span className="text-[11px] font-semibold tracking-[0.22em] text-aer-cream/85">AER × VÆLOR</span>
-              </a>
-
-              <p className="mt-6 max-w-sm text-[11px] leading-5 text-aer-cream/38">
-                Independent digital design and creative development for brands that care how things feel.
+          {/* The main idea: typography becomes the architecture of the footer. */}
+          <div className="relative flex min-h-[610px] flex-col justify-between py-20 md:min-h-[690px] md:py-24">
+            <div className="relative z-10 max-w-4xl">
+              <p className="mb-7 text-[9px] font-medium uppercase tracking-[0.35em] text-aer-blue/80">
+                THE NEXT THING STARTS HERE
               </p>
+              <h2 className="font-editorial text-[clamp(3.5rem,10vw,9.5rem)] uppercase leading-[0.78] tracking-[-0.045em]">
+                Let&apos;s make
+                <br />
+                <span className="relative inline-block text-aer-cream">
+                  <span className="italic text-aer-blue">noise</span>
+                  <span className="ml-[0.12em]">worth</span>
+                </span>
+                <br />
+                <span className="text-aer-cream/20">remembering.</span>
+              </h2>
+            </div>
+
+            <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-sm">
+                <p className="text-[11px] leading-5 text-aer-cream/40">
+                  If the idea is ambitious, strange, or simply impossible to ignore — send it over.
+                </p>
+                <a
+                  href="mailto:AlsanaAlgo@gmail.com?subject=Project%20Inquiry"
+                  className="group mt-6 inline-flex items-center gap-3 border-b border-aer-cream/25 pb-2 text-[11px] font-medium tracking-[0.12em] transition-colors duration-300 hover:border-aer-blue hover:text-aer-blue"
+                >
+                  <Mail size={14} strokeWidth={1.5} />
+                  ALSANAALGO@GMAIL.COM
+                  <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </a>
+              </div>
 
               <a
-                href="mailto:AlsanaAlgo@gmail.com"
-                className="mt-5 inline-flex items-center gap-2 text-[10px] tracking-[0.12em] text-aer-cream/62 transition-colors duration-300 hover:text-aer-blue"
+                href="mailto:AlsanaAlgo@gmail.com?subject=Project%20Inquiry"
+                className="group relative flex h-32 w-32 shrink-0 items-center justify-center rounded-full border border-aer-blue/45 bg-aer-blue/[0.06] text-center text-[9px] font-semibold leading-4 tracking-[0.14em] text-aer-cream backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:bg-aer-blue hover:text-[#061011] hover:shadow-[0_0_80px_rgba(64,224,208,0.22)] md:h-40 md:w-40"
               >
-                <Mail size={13} strokeWidth={1.7} />
-                AlsanaAlgo@gmail.com
+                <span>START<br />A PROJECT</span>
+                <ArrowDownRight size={15} strokeWidth={1.5} className="absolute bottom-7 right-7 transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1" />
               </a>
-            </div>
-
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-2">
-              {footerLinks.map((group) => (
-                <div key={group.title}>
-                  <p className="mb-5 text-[9px] font-medium tracking-[0.24em] text-aer-cream/32">{group.title}</p>
-                  <div className="flex flex-col items-start gap-3">
-                    {group.links.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        className="text-[10px] tracking-[0.05em] text-aer-cream/62 transition-colors duration-300 hover:text-aer-blue"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
-          <div className="mt-10 border-t border-white/[0.08] pt-5">
-            <div className="flex flex-col gap-3 text-[9px] tracking-[0.14em] text-aer-cream/25 sm:flex-row sm:items-center sm:justify-between">
-              <p>© {year} AER × VÆLOR</p>
-              <div className="flex gap-5">
-                <span>ALL RIGHTS RESERVED</span>
-                <a href="#top" className="transition-colors hover:text-aer-cream/60">BACK TO TOP ↑</a>
+          {/* Oversized ghost mark turns the very bottom into a visual signature. */}
+          <div className="pointer-events-none absolute -bottom-[0.18em] left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-editorial text-[clamp(8rem,27vw,27rem)] font-semibold leading-[0.7] tracking-[-0.08em] text-white/[0.018]">
+            VÆLOR
+          </div>
+
+          <div className="relative z-10 border-t border-white/[0.08] pt-5">
+            <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <a href="#top" className="text-[10px] font-semibold tracking-[0.22em] text-aer-cream/75 transition-colors hover:text-aer-blue">
+                  AER × VÆLOR
+                </a>
+                {footerLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-[8px] tracking-[0.16em] text-aer-cream/30 transition-colors hover:text-aer-cream/75"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-5 text-[8px] tracking-[0.16em] text-aer-cream/25">
+                <span>© {year}</span>
+                <span>BUILT WITH INTENT</span>
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </footer>
   );
