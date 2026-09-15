@@ -4,6 +4,7 @@ import Preloader from './components/Preloader';
 import LandingPage from './components/LandingPage';
 import LandingParticles from './components/LandingParticles';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Admin from './components/Admin';
 import ImageAdmin from './components/ImageAdmin';
 import PortfolioImageHydrator from './components/PortfolioImageHydrator';
@@ -39,6 +40,7 @@ function PublicSite() {
         >
           <Navbar />
           <LandingPage />
+          <Footer />
           <LandingParticles />
           <PortfolioImageHydrator />
         </motion.main>
