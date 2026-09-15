@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
 
 type Slot = 'velora' | 'nimble' | 'flux';
 type ImageMap = Record<Slot, string | null>;
@@ -10,6 +10,18 @@ const slots: { id: Slot; title: string; meta: string }[] = [
 ];
 
 const emptyImages: ImageMap = { velora: null, nimble: null, flux: null };
+
+function fileToBase64(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const value = String(reader.result || '');
+      resolve(value.includes(',') ? value.split(',')[1] : value);
+    };
+    reader.onerror = () => reject(new Error('Could not read image.'));
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function ImageAdmin() {
   const [password, setPassword] = useState('');
@@ -25,7 +37,7 @@ export default function ImageAdmin() {
     });
   }, []);
 
-  const unlock = (event: React.FormEvent) => {
+  const unlock = (event: FormEvent) => {
     event.preventDefault();
     setError('');
     if (password === '123') {
@@ -53,8 +65,7 @@ export default function ImageAdmin() {
     setError('');
     setMessage('Uploading…');
     try {
-      const data = await file.arrayBuffer();
-      const binary = btoa(String.fromCharCode(...new Uint8Array(data)));
+      const binary = await fileToBase64(file);
       const response = await fetch('/api/images', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
