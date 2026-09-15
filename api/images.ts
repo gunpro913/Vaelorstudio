@@ -14,10 +14,6 @@ function json(data: unknown, status = 200) {
   });
 }
 
-function adminPassword() {
-  return process.env.ADMIN_PASSWORD || '123';
-}
-
 function getServerClient() {
   const url = process.env.VITE_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -44,6 +40,8 @@ export async function GET() {
 export async function POST(request: Request) {
   const client = getServerClient();
   if (!client) return json({ error: 'Server storage is not configured.' }, 503);
+  const expectedPassword = process.env.ADMIN_PASSWORD;
+  if (!expectedPassword) return json({ error: 'Admin password is not configured.' }, 503);
 
   let body: { password?: string; slot?: string; filename?: string; contentType?: string; data?: string };
   try {
@@ -52,7 +50,7 @@ export async function POST(request: Request) {
     return json({ error: 'Invalid request.' }, 400);
   }
 
-  if (body.password !== adminPassword()) return json({ error: 'Incorrect password.' }, 401);
+  if (body.password !== expectedPassword) return json({ error: 'Incorrect password.' }, 401);
   if (!body.slot || !isSlot(body.slot)) return json({ error: 'Invalid image slot.' }, 400);
   if (!body.data || !body.contentType?.startsWith('image/')) return json({ error: 'Please upload an image.' }, 400);
 
