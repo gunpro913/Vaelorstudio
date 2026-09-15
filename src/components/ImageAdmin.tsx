@@ -11,18 +11,6 @@ const slots: { id: Slot; title: string; meta: string }[] = [
 
 const emptyImages: ImageMap = { velora: null, nimble: null, flux: null };
 
-function fileToBase64(file: File) {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const value = String(reader.result || '');
-      resolve(value.includes(',') ? value.split(',')[1] : value);
-    };
-    reader.onerror = () => reject(new Error('Could not read image.'));
-    reader.readAsDataURL(file);
-  });
-}
-
 export default function ImageAdmin() {
   const [password, setPassword] = useState('');
   const [unlocked, setUnlocked] = useState(false);
@@ -65,12 +53,12 @@ export default function ImageAdmin() {
     setError('');
     setMessage('Uploading…');
     try {
-      const binary = await fileToBase64(file);
-      const response = await fetch('/api/images', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ password, slot, filename: file.name, contentType: file.type, data: binary }),
-      });
+      const form = new FormData();
+      form.append('password', password);
+      form.append('slot', slot);
+      form.append('file', file, file.name);
+
+      const response = await fetch('/api/images', { method: 'POST', body: form });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Upload failed.');
       setImages(result.images);
