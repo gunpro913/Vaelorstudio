@@ -74,6 +74,25 @@ main section:first-of-type .mt-16.flex {
   display: none !important;
 }
 
+/* Hero CTA: match the navbar's restrained glassmorphism. */
+main section:first-of-type a[href="#work"] {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  background: rgba(7, 16, 17, 0.42) !important;
+  color: rgba(250, 248, 245, 0.88) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  transition: border-color 280ms ease, background-color 280ms ease, color 280ms ease, transform 280ms ease, box-shadow 280ms ease;
+}
+
+main section:first-of-type a[href="#work"]:hover {
+  border-color: rgba(64, 224, 208, 0.42) !important;
+  background: rgba(64, 224, 208, 0.10) !important;
+  color: #FAF8F5 !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
 /* Remove ornamental signal dots. */
 main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] {
   display: none !important;
