@@ -5,30 +5,26 @@
   --color-aer-charcoal: #101010;
   --color-aer-cream: #FAF8F5;
   --color-aer-blue: #40E0D0;
-  
+
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', sans-serif;
 }
 
+html {
+  background: #071314;
+}
+
 body {
-  background-color: var(--color-aer-charcoal);
+  background:
+    radial-gradient(ellipse at 86% 72%, rgba(36, 145, 148, 0.38) 0%, transparent 42%),
+    radial-gradient(ellipse at 64% 52%, rgba(10, 74, 78, 0.26) 0%, transparent 46%),
+    linear-gradient(135deg, #020808 0%, #061617 48%, #0a3a3c 100%);
+  background-attachment: fixed;
   color: var(--color-aer-cream);
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.noise-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 50;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 .font-editorial {
@@ -53,6 +49,42 @@ textarea:focus-visible {
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
+}
+
+/* Clean portfolio rule: the page background carries the visual weight. */
+main > div:first-of-type {
+  background: transparent !important;
+}
+
+main > div:first-of-type > div:first-child {
+  display: none !important;
+}
+
+main section {
+  background-color: transparent !important;
+}
+
+/* Hero: remove editorial metadata, decorative shapes, grids and guide lines. */
+main section:first-of-type > :nth-child(-n+5) {
+  display: none !important;
+}
+
+main section:first-of-type .mb-6,
+main section:first-of-type .hidden.pb-3,
+main section:first-of-type .mt-16.flex {
+  display: none !important;
+}
+
+/* Remove ornamental dot/signal elements without removing functional content. */
+main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] {
+  display: none !important;
+}
+
+/* Keep content cards clean: no unnecessary guide/grid borders. */
+main section [class~="border-t"],
+main section [class~="border-b"],
+main section [class~="border-l"] {
+  border-color: transparent !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
