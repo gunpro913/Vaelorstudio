@@ -10,6 +10,7 @@ const links = [
 ];
 
 const itemTransition = { duration: 0.38, ease: [0.16, 1, 0.3, 1] as const };
+const navTransition = { duration: 0.58, ease: [0.16, 1, 0.3, 1] as const };
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,7 +19,6 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 72);
-
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -31,13 +31,19 @@ export default function Navbar() {
       <motion.nav
         layout="size"
         initial={false}
-        transition={{ layout: { duration: 0.46, ease: [0.16, 1, 0.3, 1] } }}
-        className={`fixed left-1/2 top-4 z-50 -translate-x-1/2 rounded-full border border-white/[0.12] bg-[#071011]/45 p-1.5 text-white shadow-[0_12px_36px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-xl backdrop-saturate-125 ${
-          scrolled ? 'w-auto' : 'w-[min(760px,calc(100vw-32px))]'
-        }`}
+        animate={{
+          width: scrolled ? 'auto' : 'min(760px, calc(100vw - 32px))',
+          padding: scrolled ? '6px' : '6px',
+        }}
+        transition={{ layout: navTransition, width: navTransition, padding: navTransition }}
+        className="fixed left-1/2 top-4 z-50 -translate-x-1/2 rounded-full border border-white/[0.12] bg-[#071011]/45 p-1.5 text-white shadow-[0_12px_36px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-xl backdrop-saturate-125"
         aria-label="Primary navigation"
       >
-        <div className={`flex min-h-10 items-center gap-1 ${scrolled ? '' : 'justify-between'}`}>
+        <motion.div
+          layout
+          transition={{ layout: navTransition }}
+          className={`flex min-h-10 items-center gap-1 ${scrolled ? '' : 'justify-between'}`}
+        >
           <a
             href="#top"
             aria-label="Home"
@@ -121,17 +127,19 @@ export default function Navbar() {
             );
           })()}
 
-          <button
+          <motion.button
             type="button"
-            className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-[10px] font-medium text-white md:hidden"
+            animate={{ scale: scrolled ? 0.96 : 1, paddingLeft: scrolled ? 13 : 16, paddingRight: scrolled ? 13 : 16 }}
+            transition={navTransition}
+            className="rounded-full border border-white/10 bg-white/[0.05] py-2 text-[10px] font-medium text-white md:hidden"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
             aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           >
             {menuOpen ? 'Close' : 'Menu'}
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </motion.nav>
 
       <AnimatePresence>
@@ -149,7 +157,6 @@ export default function Navbar() {
           >
             {links.map((link, i) => {
               const Icon = link.icon;
-
               return (
                 <motion.a
                   key={link.name}
@@ -165,11 +172,7 @@ export default function Navbar() {
                 </motion.a>
               );
             })}
-            <a
-              href="mailto:AlsanaAlgo@gmail.com"
-              onClick={closeMenu}
-              className="mt-2 flex items-center gap-2 rounded-full bg-white px-5 py-2 text-[10px] font-medium text-[#0a0b0b]"
-            >
+            <a href="mailto:AlsanaAlgo@gmail.com" onClick={closeMenu} className="mt-2 flex items-center gap-2 rounded-full bg-white px-5 py-2 text-[10px] font-medium text-[#0a0b0b]">
               <Mail size={14} aria-hidden="true" />
               AlsanaAlgo@gmail.com
             </a>
