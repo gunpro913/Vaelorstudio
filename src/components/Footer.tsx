@@ -8,7 +8,6 @@ const faqs = [
   ['Which services can you help with?', 'Strategy, positioning, UX/UI, design systems, motion, frontend engineering, backend integration and product refinement can be combined around what the project actually needs.'],
   ['Do you work with existing brand guidelines?', 'Yes. We can extend an existing visual language or evolve it when the current system no longer supports the product or experience.'],
   ['Who will be my main point of contact?', 'You work directly with the studio throughout the project, keeping decisions, feedback and direction close to the work.'],
-  ['How do you handle revisions?', 'Each stage has a defined review point. Feedback is gathered against the agreed direction so revisions improve the system rather than creating unnecessary loops.'],
   ['Do you offer ongoing support after launch?', 'Yes, when it makes sense for the project. We can continue with optimisation, new experiences, motion, feature work or product refinement.'],
   ['Do you also build websites, or just design them?', 'We can take a project from strategy and interface design through production frontend and integration, keeping the final experience faithful to the original direction.'],
   ['What tools do you use for design and development?', 'The stack follows the project. We choose tools for the right balance of speed, maintainability, performance and quality.'],
