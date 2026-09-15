@@ -2,17 +2,17 @@ import { useState } from 'react';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
 
 const faqs = [
-  ['What does working with Vaelorstudio look like?', 'We start with context and direction, then move through design, build and refinement as one connected process. The goal is a clear system, not a collection of disconnected deliverables.'],
-  ['How does the design process work?', 'We understand the problem, establish direction, explore the strongest ideas, prototype the experience and refine the system before it ships.'],
-  ['What are the typical timelines for a project?', 'Timelines depend on scope and complexity. We plan the work in clear stages with milestones agreed up front.'],
-  ['Which services can you help with?', 'Strategy, positioning, UX/UI, design systems, motion, frontend engineering, backend integration and product refinement can be combined around what the project actually needs.'],
-  ['Do you work with existing brand guidelines?', 'Yes. We can extend an existing visual language or evolve it when the current system no longer supports the product or experience.'],
-  ['Who will be my main point of contact?', 'You work directly with the studio throughout the project, keeping decisions, feedback and direction close to the work.'],
-  ['Do you offer ongoing support after launch?', 'Yes, when it makes sense for the project. We can continue with optimisation, new experiences, motion, feature work or product refinement.'],
-  ['Do you also build websites, or just design them?', 'We can take a project from strategy and interface design through production frontend and integration, keeping the final experience faithful to the original direction.'],
-  ['What tools do you use for design and development?', 'The stack follows the project. We choose tools for the right balance of speed, maintainability, performance and quality.'],
-  ['What is your pricing structure?', 'Projects are scoped around the work involved rather than a fixed menu. Once we understand the brief, we define the scope, stages and investment clearly before work begins.'],
-  ['Can I see more examples of your work?', 'Yes. The selected work above is a starting point, and we can share relevant examples based on the type of product, brand or experience you are looking to build.'],
+  ['What does working with Vaelorstudio look like?', 'We start with context and direction, then move through design, build and refinement as one connected process. You always know what we are solving, what comes next and why.'],
+  ['How do you approach a new project?', 'We first understand the product, audience, constraints and opportunity. From there we establish a clear direction, prototype the strongest ideas and refine the system before it ships.'],
+  ['How long does a project usually take?', 'It depends on scope and complexity. We break the work into clear stages with milestones agreed up front, so the timeline stays visible as the project develops.'],
+  ['What can you help us with?', 'Strategy, positioning, UX/UI, design systems, motion, frontend engineering, backend integration and product refinement can be combined around what the project actually needs.'],
+  ['Can you work with an existing brand?', 'Yes. We can extend an established visual language or evolve it when the current system no longer supports the product or experience.'],
+  ['Who will I work with?', 'You work directly with the studio throughout the project. That keeps decisions, feedback and direction close to the work rather than passing through layers.'],
+  ['Can you stay involved after launch?', 'Yes, when it makes sense. We can continue with optimisation, new experiences, motion, feature work or ongoing product refinement.'],
+  ['Do you build what you design?', 'Yes. We can take a project from strategy and interface design through production frontend and integration, keeping the final experience faithful to the original direction.'],
+  ['What tools and technology do you use?', 'The stack follows the project. We choose tools for the right balance of speed, maintainability, performance and quality rather than forcing a fixed stack.'],
+  ['How do you price projects?', 'Projects are scoped around the work involved rather than a fixed menu. Once we understand the brief, we define the scope, stages and investment clearly before work begins.'],
+  ['Can I see relevant work before we start?', 'Yes. The selected work above is a starting point, and we can share relevant examples based on the type of product, brand or experience you are looking to build.'],
 ];
 
 export default function Footer() {
@@ -26,8 +26,8 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[.55fr_1.45fr] lg:gap-20">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <div className="mb-6 flex items-center gap-3 text-[9px] font-medium uppercase tracking-[.32em] text-white/45"><span className="h-px w-7 bg-aer-blue/70" />Frequently asked questions</div>
-            <h2 className="max-w-xl font-editorial text-6xl leading-[.84] tracking-[-.04em] md:text-8xl">Got<br /><span className="text-white/25">questions?</span></h2>
-            <p className="mt-7 max-w-sm text-sm leading-7 text-white/40">A few answers about how Vaelorstudio works, what we build and what to expect when we work together.</p>
+            <h2 className="max-w-xl font-editorial text-6xl leading-[.84] tracking-[-.04em] md:text-8xl">Before<br /><span className="text-white/25">we start.</span></h2>
+            <p className="mt-7 max-w-sm text-sm leading-7 text-white/40">The practical details, without the noise. If the right question is not here, ask us directly.</p>
           </div>
           <div className="border-t border-white/10">
             {faqs.map(([question, answer], index) => {
