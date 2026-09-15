@@ -50,7 +50,7 @@ input::placeholder {
   opacity: 1;
 }
 
-/* Clean portfolio rule: the page background carries the visual weight. */
+/* Keep the page itself clean; the hero owns the interactive texture. */
 main > div:first-of-type {
   background: transparent !important;
 }
@@ -63,33 +63,44 @@ main section {
   background-color: transparent !important;
 }
 
-/* Landing: the interactive texture is a dot field, never a line grid. */
+/* Hero particle field: subtle at rest, responsive to pointer/touch. */
 #top {
   isolation: isolate;
 }
 
-.landing-particles {
+#top > section:first-of-type {
+  isolation: isolate;
+}
+
+#top > section:first-of-type .landing-particles {
   position: absolute;
   inset: 0;
   z-index: 1;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.76;
+  opacity: 0.7;
 }
 
-/* Keep the landing copy above the particle layer. */
-#top > .relative {
+#top > section:first-of-type > .relative {
+  position: relative;
   z-index: 2;
 }
 
-/* The particle layer replaces only the decorative hero ornaments. */
-#top > section:first-of-type > .absolute {
+/* Keep only the hero's actual gradient; remove ornamental blobs and guide lines. */
+#top > section:first-of-type > div.absolute:not(:first-of-type) {
   display: none !important;
 }
 
-/* Hero CTA: match the navbar's restrained glassmorphism. */
-main section:first-of-type a[href="#work"] {
+/* Remove the old hero microcopy and status rail. */
+#top > section:first-of-type > .relative > .grid > div:first-child > div:first-child,
+#top > section:first-of-type > .relative > .grid > div:last-child,
+#top > section:first-of-type > .relative > .mt-16 {
+  display: none !important;
+}
+
+/* Hero CTA: restrained glass, matching the navbar. */
+#top > section:first-of-type a[href="#work"] {
   border-color: rgba(255, 255, 255, 0.12) !important;
   background: rgba(7, 16, 17, 0.42) !important;
   color: rgba(250, 248, 245, 0.88) !important;
@@ -99,7 +110,7 @@ main section:first-of-type a[href="#work"] {
   transition: border-color 280ms ease, background-color 280ms ease, color 280ms ease, transform 280ms ease, box-shadow 280ms ease;
 }
 
-main section:first-of-type a[href="#work"]:hover {
+#top > section:first-of-type a[href="#work"]:hover {
   border-color: rgba(64, 224, 208, 0.42) !important;
   background: rgba(64, 224, 208, 0.10) !important;
   color: #FAF8F5 !important;
@@ -107,15 +118,19 @@ main section:first-of-type a[href="#work"]:hover {
   transform: translateY(-1px);
 }
 
-/* Remove ornamental signal dots. */
+/* Remove decorative signal dots without touching structural borders. */
 main section [class~="shadow-[0_0_18px_rgba(64,224,208,.9)]"] {
   display: none !important;
 }
 
-/* Golden rule: no unnecessary grid/guide lines. */
-main section [class~="border-t"],
-main section [class~="border-b"],
-main section [class~="border-l"] {
+/* Golden rule: no horizontal/vertical guide lines across the portfolio. */
+#top > section:first-of-type {
+  border-bottom-color: transparent !important;
+}
+
+#top > section:first-of-type .border-t,
+#top > section:first-of-type .border-b,
+#top > section:first-of-type .border-l {
   border-color: transparent !important;
 }
 
