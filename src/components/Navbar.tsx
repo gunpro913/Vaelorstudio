@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { BookOpen, BriefcaseBusiness, FlaskConical, Mail, Sparkles, UserRound } from 'lucide-react';
+import { BookOpen, BriefcaseBusiness, FlaskConical, Mail, Menu, Sparkles, UserRound, X } from 'lucide-react';
 
 const links = [
   { name: 'Work', href: '#work', icon: BriefcaseBusiness },
@@ -80,8 +80,8 @@ export default function Navbar() {
             </AnimatePresence>
           </motion.a>
 
-          <motion.button type="button" animate={{ scale: scrolled ? 0.96 : 1, paddingLeft: scrolled ? 13 : 16, paddingRight: scrolled ? 13 : 16 }} transition={navTransition} className="rounded-full border border-white/10 bg-white/[0.05] py-2 text-[10px] font-medium text-white md:hidden" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}>
-            {menuOpen ? 'Close' : 'Menu'}
+          <motion.button type="button" animate={{ scale: scrolled ? 0.96 : 1 }} transition={navTransition} className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-white md:hidden" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}>
+            {menuOpen ? <X size={18} strokeWidth={1.7} aria-hidden="true" /> : <Menu size={18} strokeWidth={1.7} aria-hidden="true" />}
           </motion.button>
         </motion.div>
       </motion.nav>
