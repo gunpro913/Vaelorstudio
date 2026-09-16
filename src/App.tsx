@@ -37,7 +37,7 @@ function PublicSite() {
         <motion.main
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className="relative w-full"
         >
           <Navbar />
