@@ -42,8 +42,8 @@ function PublicSite() {
         >
           <Navbar />
           <LandingPage />
-          <ExperienceManifesto />
           <AiApproachRefined />
+          <ExperienceManifesto />
           <Footer />
           <LandingParticles />
           <PortfolioImageHydrator />
