@@ -9,7 +9,6 @@ import Admin from './components/Admin';
 import ImageAdmin from './components/ImageAdmin';
 import PortfolioImageHydrator from './components/PortfolioImageHydrator';
 import ExperienceManifesto from './components/ExperienceManifesto';
-import AiApproachRefined from './components/AiApproachRefined';
 import { supabase } from './lib/supabase';
 
 function PublicSite() {
@@ -50,7 +49,6 @@ function PublicSite() {
         >
           <Navbar />
           <LandingPage />
-          <AiApproachRefined />
           <ExperienceManifesto />
           <Footer />
           <LandingParticles />
